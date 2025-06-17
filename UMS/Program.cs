@@ -19,12 +19,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IDapperRepository, DapperRepository>();
 builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();    
 builder.Services.AddScoped<DesignationRepository>();
 builder.Services.AddScoped<IValidator<AddDesignationModel>, AddDesignationValidator>();
 builder.Services.AddScoped<IValidator<int>, DeleteDesignationValidator>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IValidator<ManagerRegisterModel>, ManagerRegisterValidator>();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -103,6 +105,13 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddDistributedMemoryCache(); // Required for session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout
+    options.Cookie.HttpOnly = true;                 // Security best practice
+    options.Cookie.IsEssential = true;              // Required for GDPR compliance
+});
 
 
 builder.Services.AddScoped<JWTService>();
@@ -123,6 +132,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseSession();
 
 app.UseAuthorization();
 
