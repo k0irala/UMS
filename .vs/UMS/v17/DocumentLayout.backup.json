@@ -1,0 +1,870 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\saura\\source\\repos\\UMS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\emailsettingsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\emailsettingsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\mailrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\mailrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\repositories\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\repositories\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\repositories\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\repositories\\iaccountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\loginrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\loginrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\migrations\\20250617085745_otp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\migrations\\20250617085745_otp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\migrations\\20250617043330_refreshtoken_emp_and_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\migrations\\20250617043330_refreshtoken_emp_and_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\configurations\\loginverificationotpconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\configurations\\loginverificationotpconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\configurations\\employeerefreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\configurations\\employeerefreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\configurations\\managerattendanceconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\configurations\\managerattendanceconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\loginverificationotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\loginverificationotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\constantvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\constantvalues.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\controllers\\designationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\controllers\\designationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\configurations\\managerrefreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\configurations\\managerrefreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\refreshtokenmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\refreshtokenmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\refreshtokenemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\refreshtokenemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\attendancemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\attendancemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\managerattendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\managerattendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\ums.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\ums.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\migrations\\20250613084701_firstmigration_attendance_designation_employee_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\migrations\\20250613084701_firstmigration_attendance_designation_employee_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\enums\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\enums\\roles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\loginresponsemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\loginresponsemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\repositories\\dapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\repositories\\dapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\helpers\\encryptionhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\helpers\\encryptionhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\storedprocedures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\storedprocedures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\repositories\\designationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\repositories\\designationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\validations\\account\\manager\\managerregistervalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\validations\\account\\manager\\managerregistervalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\validations\\deisgnation\\adddesignationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\validations\\deisgnation\\adddesignationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\employee\\addemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\employee\\addemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\migrations\\20250616062332_roles_table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\migrations\\20250616062332_roles_table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\repositories\\idesignationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\repositories\\idesignationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\validations\\deisgnation\\updatedesignationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\validations\\deisgnation\\updatedesignationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\designation\\updatedesignationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\designation\\updatedesignationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\designation\\adddesignationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\designation\\adddesignationmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\validations\\deisgnation\\deletedesignationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\validations\\deisgnation\\deletedesignationvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\entities\\designation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\entities\\designation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\repositories\\idapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\repositories\\idapperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\dbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\dbconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|c:\\users\\saura\\source\\repos\\ums\\ums\\models\\userregistermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EF64A25-3BA2-47DE-B1E2-598F701AEE1D}|UMS\\UMS.csproj|solutionrelative:ums\\models\\userregistermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "UMS\\Services\\EmailService.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Services\\EmailService.cs",
+              "RelativeToolTip": "UMS\\Services\\EmailService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABcAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T09:07:08.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmailSettingsModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\EmailSettingsModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\EmailSettingsModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\EmailSettingsModel.cs",
+              "RelativeToolTip": "UMS\\Models\\EmailSettingsModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T09:06:27.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MailRequestModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\MailRequestModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\MailRequestModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\MailRequestModel.cs*",
+              "RelativeToolTip": "UMS\\Models\\MailRequestModel.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T09:05:35.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IEmailService.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Services\\IEmailService.cs",
+              "RelativeDocumentMoniker": "UMS\\Services\\IEmailService.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Services\\IEmailService.cs",
+              "RelativeToolTip": "UMS\\Services\\IEmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T09:04:58.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "20250617085745_OTP.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250617085745_OTP.cs",
+              "RelativeDocumentMoniker": "UMS\\Migrations\\20250617085745_OTP.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250617085745_OTP.cs",
+              "RelativeToolTip": "UMS\\Migrations\\20250617085745_OTP.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T08:57:49.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "UMS\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "UMS\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAxwCIAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T07:44:21.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginRequestModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\LoginRequestModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\LoginRequestModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\LoginRequestModel.cs",
+              "RelativeToolTip": "UMS\\Models\\LoginRequestModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T07:28:57.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IAccountRepository.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\IAccountRepository.cs",
+              "RelativeDocumentMoniker": "UMS\\Repositories\\IAccountRepository.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\IAccountRepository.cs",
+              "RelativeToolTip": "UMS\\Repositories\\IAccountRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T07:26:53.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AccountRepository.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\AccountRepository.cs",
+              "RelativeDocumentMoniker": "UMS\\Repositories\\AccountRepository.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\AccountRepository.cs*",
+              "RelativeToolTip": "UMS\\Repositories\\AccountRepository.cs*",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAowFoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T07:48:33.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "JWTService.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Services\\JWTService.cs",
+              "RelativeDocumentMoniker": "UMS\\Services\\JWTService.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Services\\JWTService.cs",
+              "RelativeToolTip": "UMS\\Services\\JWTService.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAAwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T09:48:26.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20250617043330_RefreshToken_Emp_and_Manager.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250617043330_RefreshToken_Emp_and_Manager.cs",
+              "RelativeDocumentMoniker": "UMS\\Migrations\\20250617043330_RefreshToken_Emp_and_Manager.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250617043330_RefreshToken_Emp_and_Manager.cs",
+              "RelativeToolTip": "UMS\\Migrations\\20250617043330_RefreshToken_Emp_and_Manager.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAuwDAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:33:35.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LoginVerificationOTPConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\LoginVerificationOTPConfiguration.cs",
+              "RelativeDocumentMoniker": "UMS\\Configurations\\LoginVerificationOTPConfiguration.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\LoginVerificationOTPConfiguration.cs",
+              "RelativeToolTip": "UMS\\Configurations\\LoginVerificationOTPConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T08:51:18.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "EmployeeRefreshTokenConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\EmployeeRefreshTokenConfiguration.cs",
+              "RelativeDocumentMoniker": "UMS\\Configurations\\EmployeeRefreshTokenConfiguration.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\EmployeeRefreshTokenConfiguration.cs",
+              "RelativeToolTip": "UMS\\Configurations\\EmployeeRefreshTokenConfiguration.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:29:30.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ManagerAttendanceConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\ManagerAttendanceConfiguration.cs",
+              "RelativeDocumentMoniker": "UMS\\Configurations\\ManagerAttendanceConfiguration.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\ManagerAttendanceConfiguration.cs",
+              "RelativeToolTip": "UMS\\Configurations\\ManagerAttendanceConfiguration.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:26:23.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "UMS\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "UMS\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAADwvxIAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:18:22.565Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "LoginVerificationOTP.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\LoginVerificationOTP.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\LoginVerificationOTP.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\LoginVerificationOTP.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\LoginVerificationOTP.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T08:50:38.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Manager.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Manager.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\Manager.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Manager.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\Manager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:02:13.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Employee.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\Employee.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Employee.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:03:14.318Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ConstantValues.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\ConstantValues.cs",
+              "RelativeDocumentMoniker": "UMS\\ConstantValues.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\ConstantValues.cs",
+              "RelativeToolTip": "UMS\\ConstantValues.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T11:41:56.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "DesignationController.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Controllers\\DesignationController.cs",
+              "RelativeDocumentMoniker": "UMS\\Controllers\\DesignationController.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Controllers\\DesignationController.cs",
+              "RelativeToolTip": "UMS\\Controllers\\DesignationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T09:47:08.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Program.cs",
+              "RelativeDocumentMoniker": "UMS\\Program.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Program.cs",
+              "RelativeToolTip": "UMS\\Program.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAuwGsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:19:41.393Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ManagerRefreshTokenConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\ManagerRefreshTokenConfiguration.cs",
+              "RelativeDocumentMoniker": "UMS\\Configurations\\ManagerRefreshTokenConfiguration.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Configurations\\ManagerRefreshTokenConfiguration.cs",
+              "RelativeToolTip": "UMS\\Configurations\\ManagerRefreshTokenConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:29:46.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "RefreshTokenManager.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\RefreshTokenManager.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\RefreshTokenManager.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\RefreshTokenManager.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\RefreshTokenManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:28:48.071Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "RefreshTokenEmployee.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\RefreshTokenEmployee.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\RefreshTokenEmployee.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\RefreshTokenEmployee.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\RefreshTokenEmployee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T04:25:10.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ManagerAttendance.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\ManagerAttendance.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\ManagerAttendance.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\ManagerAttendance.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\ManagerAttendance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T11:22:19.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Roles.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\Roles.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Roles.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T06:19:31.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AttendanceModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\AttendanceModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\AttendanceModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\AttendanceModel.cs",
+              "RelativeToolTip": "UMS\\Models\\AttendanceModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:03:52.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "UMS.csproj",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\UMS.csproj",
+              "RelativeDocumentMoniker": "UMS\\UMS.csproj",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\UMS.csproj*",
+              "RelativeToolTip": "UMS\\UMS.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-13T07:48:59.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Attendance.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Attendance.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\Attendance.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Attendance.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\Attendance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:04:02.98Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "LoginResponseModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\LoginResponseModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\LoginResponseModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\LoginResponseModel.cs",
+              "RelativeToolTip": "UMS\\Models\\LoginResponseModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T09:50:12.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Roles.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Enums\\Roles.cs",
+              "RelativeDocumentMoniker": "UMS\\Enums\\Roles.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Enums\\Roles.cs",
+              "RelativeToolTip": "UMS\\Enums\\Roles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T09:55:03.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "20250613084701_FirstMigration_Attendance_Designation_Employee_Manager.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250613084701_FirstMigration_Attendance_Designation_Employee_Manager.cs",
+              "RelativeDocumentMoniker": "UMS\\Migrations\\20250613084701_FirstMigration_Attendance_Designation_Employee_Manager.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250613084701_FirstMigration_Attendance_Designation_Employee_Manager.cs",
+              "RelativeToolTip": "UMS\\Migrations\\20250613084701_FirstMigration_Attendance_Designation_Employee_Manager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:47:04.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "EncryptionHelper.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Helpers\\EncryptionHelper.cs",
+              "RelativeDocumentMoniker": "UMS\\Helpers\\EncryptionHelper.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Helpers\\EncryptionHelper.cs",
+              "RelativeToolTip": "UMS\\Helpers\\EncryptionHelper.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T06:40:42.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "DapperRepository.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\DapperRepository.cs",
+              "RelativeDocumentMoniker": "UMS\\Repositories\\DapperRepository.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\DapperRepository.cs",
+              "RelativeToolTip": "UMS\\Repositories\\DapperRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T09:34:25.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "StoredProcedures.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\StoredProcedures.cs",
+              "RelativeDocumentMoniker": "UMS\\StoredProcedures.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\StoredProcedures.cs",
+              "RelativeToolTip": "UMS\\StoredProcedures.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T07:56:49.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "DesignationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\DesignationRepository.cs",
+              "RelativeDocumentMoniker": "UMS\\Repositories\\DesignationRepository.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\DesignationRepository.cs",
+              "RelativeToolTip": "UMS\\Repositories\\DesignationRepository.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAswBwAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T09:04:55.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ManagerRegisterValidator.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Account\\Manager\\ManagerRegisterValidator.cs",
+              "RelativeDocumentMoniker": "UMS\\Validations\\Account\\Manager\\ManagerRegisterValidator.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Account\\Manager\\ManagerRegisterValidator.cs",
+              "RelativeToolTip": "UMS\\Validations\\Account\\Manager\\ManagerRegisterValidator.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA7wBMAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T07:50:58.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "AddDesignationValidator.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Deisgnation\\AddDesignationValidator.cs",
+              "RelativeDocumentMoniker": "UMS\\Validations\\Deisgnation\\AddDesignationValidator.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Deisgnation\\AddDesignationValidator.cs",
+              "RelativeToolTip": "UMS\\Validations\\Deisgnation\\AddDesignationValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T04:19:57.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "AddEmployee.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Employee\\AddEmployee.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Employee\\AddEmployee.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Employee\\AddEmployee.cs",
+              "RelativeToolTip": "UMS\\Models\\Employee\\AddEmployee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T07:47:25.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\appsettings.json",
+              "RelativeDocumentMoniker": "UMS\\appsettings.json",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\appsettings.json",
+              "RelativeToolTip": "UMS\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-13T07:50:11.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "20250616062332_Roles_Table.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250616062332_Roles_Table.cs",
+              "RelativeDocumentMoniker": "UMS\\Migrations\\20250616062332_Roles_Table.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Migrations\\20250616062332_Roles_Table.cs",
+              "RelativeToolTip": "UMS\\Migrations\\20250616062332_Roles_Table.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBYAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T06:23:36.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "AddDesignationModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Designation\\AddDesignationModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Designation\\AddDesignationModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Designation\\AddDesignationModel.cs",
+              "RelativeToolTip": "UMS\\Models\\Designation\\AddDesignationModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:01:45.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "UpdateDesignationValidator.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Deisgnation\\UpdateDesignationValidator.cs",
+              "RelativeDocumentMoniker": "UMS\\Validations\\Deisgnation\\UpdateDesignationValidator.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Deisgnation\\UpdateDesignationValidator.cs",
+              "RelativeToolTip": "UMS\\Validations\\Deisgnation\\UpdateDesignationValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T05:02:32.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "IDesignationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\IDesignationRepository.cs",
+              "RelativeDocumentMoniker": "UMS\\Repositories\\IDesignationRepository.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\IDesignationRepository.cs",
+              "RelativeToolTip": "UMS\\Repositories\\IDesignationRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:58:37.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "UpdateDesignationModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Designation\\UpdateDesignationModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Designation\\UpdateDesignationModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Designation\\UpdateDesignationModel.cs",
+              "RelativeToolTip": "UMS\\Models\\Designation\\UpdateDesignationModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T05:57:51.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "DeleteDesignationValidator.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Deisgnation\\DeleteDesignationValidator.cs",
+              "RelativeDocumentMoniker": "UMS\\Validations\\Deisgnation\\DeleteDesignationValidator.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Validations\\Deisgnation\\DeleteDesignationValidator.cs",
+              "RelativeToolTip": "UMS\\Validations\\Deisgnation\\DeleteDesignationValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-16T04:56:10.103Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Designation.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Designation.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\Entities\\Designation.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\Entities\\Designation.cs",
+              "RelativeToolTip": "UMS\\Models\\Entities\\Designation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:01:56.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "IDapperRepository.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\IDapperRepository.cs",
+              "RelativeDocumentMoniker": "UMS\\Repositories\\IDapperRepository.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Repositories\\IDapperRepository.cs",
+              "RelativeToolTip": "UMS\\Repositories\\IDapperRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T09:32:59.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "DbConfig.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\DbConfig.cs",
+              "RelativeDocumentMoniker": "UMS\\DbConfig.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\DbConfig.cs",
+              "RelativeToolTip": "UMS\\DbConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T07:49:02.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "UserRegisterModel.cs",
+              "DocumentMoniker": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\UserRegisterModel.cs",
+              "RelativeDocumentMoniker": "UMS\\Models\\UserRegisterModel.cs",
+              "ToolTip": "C:\\Users\\saura\\source\\repos\\UMS\\UMS\\Models\\UserRegisterModel.cs",
+              "RelativeToolTip": "UMS\\Models\\UserRegisterModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T07:58:46.158Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
