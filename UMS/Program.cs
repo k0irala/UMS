@@ -22,8 +22,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IDapperRepository, DapperRepository>();
-builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();    
+builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 builder.Services.AddScoped<DesignationRepository>();
+builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IValidator<AddDesignationModel>, AddDesignationValidator>();
 builder.Services.AddScoped<IValidator<int>, DeleteDesignationValidator>();
 builder.Services.AddScoped<IEmailService, EmailService>();
@@ -56,6 +58,7 @@ if (string.IsNullOrEmpty(key))
 {
     throw new ArgumentException("JWT configuration key is not set.");
 }
+builder.Services.Configure<EmailSettingsModel>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -5,136 +5,197 @@ using System.Security.Cryptography;
 using System.Text;
 using UMS.Data;
 using UMS.Models;
+using UMS.Models.Entities;
+using UMS.Enums;
+using UMS.Repositories;
+using Dapper;
+using Azure.Core;
+using System.Diagnostics;
 
 namespace UMS.Services
 {
-    public class JWTService(ApplicationDbContext dbContext,IConfiguration configuration)
+    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository)
     {
-        public LoginResponseModel AuthenticateLogin(LoginRequestModel request) 
+        // 1. Validate credentials only (NO token generation)
+        public (bool IsValid, LoginResponseModel? Token) ValidateLoginCredentials(LoginRequestModel request)
         {
-            if (string.IsNullOrEmpty(request.UserName) || string.IsNullOrEmpty(request.Password))
-            {
-                return new LoginResponseModel()
-                {
-                    UserName = "Not Found",
-                    AccessToken = "Not Found",
-                    Email = "Not Found"
-                };
-            } 
-            var existingEmployee = dbContext.Employees
-                .FirstOrDefault(u=>u.UserName == request.UserName && u.Password == request.Password);
+            if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
+                return (false, null);
 
-            var existingManager = dbContext.Managers
+            if (request.UserName == ConstantValues.ADMIN_DEFAULT_USERNAME &&
+                request.Password == ConstantValues.ADMIN_DEFAULT_PASSWORD)
+            {
+                var token = GenerateAccessToken(
+                    ConstantValues.ADMIN_DEFAULT_ID,
+                    ConstantValues.ADMIN_DEFAULT_FULLNAME,
+                    ConstantValues.ADMIN_DEFAULT_EMAIL,
+                    ConstantValues.ADMIN_DEFAULT_USERNAME,
+                    UMS.Enums.Roles.Admin.ToString());
+
+                return (true, token); 
+            }
+
+            var employee = dbContext.Employees
                 .FirstOrDefault(u => u.UserName == request.UserName && u.Password == request.Password);
 
-            
-            if(request.UserName == ConstantValues.ADMIN_DEFAULT_USERNAME && request.Password == ConstantValues.ADMIN_DEFAULT_PASSWORD)
+            if (employee != null)
             {
-               var token = GenerateAccessToken(ConstantValues.ADMIN_DEFAULT_ID, ConstantValues.ADMIN_DEFAULT_FULLNAME, ConstantValues.ADMIN_DEFAULT_EMAIL, ConstantValues.ADMIN_DEFAULT_USERNAME, UMS.Enums.Roles.Admin.ToString());
-                return token;
+                return (true, null);
             }
 
-            if (existingEmployee == null && existingManager == null) 
+            var manager = dbContext.Managers
+                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == request.Password);
+
+            if (manager != null)
             {
-                return new LoginResponseModel();
-            }
-            if (existingEmployee != null)
-            {
-                var token = GenerateAccessToken(existingEmployee.Id, existingEmployee.FullName,existingEmployee.Email, existingEmployee.UserName, UMS.Enums.Roles.Employee.ToString());
-                return token;
-            }
-            else if (existingManager != null)
-            {
-                var token = GenerateAccessToken(existingManager.Id, existingManager.FullName,ConstantValues.MANAGER_DEFAULT_EMAIL, existingManager.UserName, UMS.Enums.Roles.Manager.ToString());
-                return token;
-            }
-            else
-            {
-                return new LoginResponseModel()
-                {
-                    UserName = "Not Found",
-                };
+                return (true, null); 
             }
 
+            return (false, null); 
         }
-        public LoginResponseModel GenerateAccessToken(int Id,string FullName,string Email,string UserName,string Role)
+
+        // 2. Verify OTP and generate token if valid
+        public LoginResponseModel VerifyOtp(string otp, string email)
+        {
+
+
+            if (string.IsNullOrWhiteSpace(otp))
+                throw new ArgumentException("OTP cannot be null or empty.");
+
+            var existingOtp = dbContext.LoginVerificationOTPs.FirstOrDefault(o => o.OTP == otp && o.Email == email)
+                              ?? throw new ArgumentException("Invalid OTP.");
+
+            var deleteExistingOtp = dbContext.LoginVerificationOTPs
+                .FirstOrDefault(o => o.Email == email && o.OTP == otp);
+            if (deleteExistingOtp != null)
+            {
+                dbContext.LoginVerificationOTPs.Remove(deleteExistingOtp);
+                dbContext.SaveChanges();
+            }
+            if (existingOtp.ExpiresAt < DateTime.Now)
+                    throw new ArgumentException("OTP has expired.");
+
+            var employee = dbContext.Employees.FirstOrDefault(e => e.Email == existingOtp.Email);
+            Manager? manager = null;
+            if (employee == null && existingOtp.Email == ConstantValues.MANAGER_DEFAULT_EMAIL)
+            {
+                manager = dbContext.Managers.FirstOrDefault();
+            }
+
+            var isEmployee = employee != null;
+            if (!isEmployee && manager == null)
+                throw new ArgumentException("Manager not found.");
+            var id = isEmployee ? employee.Id : manager!.Id;
+            var fullName = isEmployee ? employee.FullName : manager!.FullName;
+            var userName = isEmployee ? employee.UserName : manager!.UserName;
+            var role = isEmployee ? UMS.Enums.Roles.Employee.ToString() : UMS.Enums.Roles.Manager.ToString();
+
+            return GenerateAccessToken(id, fullName, existingOtp.Email, userName, role);
+        }
+
+        // 3. Token generation logic (JWT + Refresh)
+        private LoginResponseModel GenerateAccessToken(int id, string fullName, string email, string userName, string role)
         {
             var issuer = configuration["JWTConfig:Issuer"];
             var audience = configuration["JWTConfig:Audience"];
             var key = configuration["JWTConfig:Key"];
-            if (string.IsNullOrEmpty(issuer) || string.IsNullOrEmpty(audience) || string.IsNullOrEmpty(key))
-            {
-                throw new ArgumentException("JWT configuration values are not set properly.");
-            }
             var tokenValidityMins = configuration.GetValue<int>("JWTConfig:TokenValidityMins");
-            var tokenExpiryTimeStamp = DateTime.Now.AddMinutes(tokenValidityMins);
+
+            if (string.IsNullOrEmpty(issuer) || string.IsNullOrEmpty(audience) || string.IsNullOrEmpty(key))
+                throw new ArgumentException("JWT configuration is missing.");
+
+            var expiration = DateTime.Now.AddMinutes(tokenValidityMins);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Name, userName),
+                new Claim(JwtRegisteredClaimNames.Email, email),
+                new Claim(ClaimTypes.Role, role)
+            };
+
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key));
+            var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(
-                [
-                new Claim(JwtRegisteredClaimNames.Name, UserName),
-                new Claim(JwtRegisteredClaimNames.Email,Email),
-                new Claim(ClaimTypes.Role,Role)
-                ]),
+                Subject = new ClaimsIdentity(claims),
                 Issuer = issuer,
                 Audience = audience,
-                Expires = tokenExpiryTimeStamp,
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
-                    SecurityAlgorithms.HmacSha256Signature)
+                Expires = expiration,
+                SigningCredentials = credentials
             };
+
             var tokenHandler = new JwtSecurityTokenHandler();
-            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-            var accessToken = tokenHandler.WriteToken(securityToken);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var accessToken = tokenHandler.WriteToken(token);
 
             return new LoginResponseModel
             {
-                RefreshToken = GenerateRefreshToken(Id,Role),
-                UserName = UserName,
+                UserName = userName,
+                Email = email,
                 AccessToken = accessToken,
-                Expiration = tokenExpiryTimeStamp
+                Expiration = expiration,
+                RefreshTokenExpiration = DateTime.Now.AddDays(5),
+                RefreshToken = GenerateRefreshToken(id, accessToken, role)
             };
         }
 
-        public string GenerateRefreshToken(int userId,string Role)
+        // 4. Generate and store Refresh Token
+        private string GenerateRefreshToken(int userId, string accessToken, string role)
         {
-            var tokenId = Guid.NewGuid().ToString();
             var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            var expiry = DateTime.Now.AddDays(5);
 
-            int expiryDays = 5;
-            var expiryDate = DateTime.Now.AddDays(expiryDays);
-            if (Role == Enums.Roles.Employee.ToString())
+            if (role == UMS.Enums.Roles.Employee.ToString())
             {
-                var existingToken = dbContext.RefreshTokenEmployees.FirstOrDefault(t => t.EmployeeId == userId);
-                if (existingToken != null)
+                var token = dbContext.RefreshTokenEmployees.FirstOrDefault(t => t.EmployeeId == userId);
+                if (token != null)
                 {
-                    existingToken.RefreshUserToken = refreshToken;
-                    existingToken.ExpiresAt = expiryDate;
-                    dbContext.SaveChanges();
-                    return refreshToken;
+                    token.RefreshUserToken = refreshToken;
+                    token.ExpiresAt = expiry;
+                }
+                else
+                {
+                    dbContext.RefreshTokenEmployees.Add(new RefreshTokenEmployee
+                    {
+                        EmployeeId = userId,
+                        RefreshUserToken = refreshToken,
+                        ExpiresAt = expiry
+                    });
+                }
+                dbContext.SaveChanges();
+            }
+            else if (role == UMS.Enums.Roles.Manager.ToString())
+            {
+                var token = dbContext.RefreshTokenManagers.FirstOrDefault(t => t.ManagerId == userId);
+                if (token != null)
+                {
+                    token.RefreshUserToken = refreshToken;
+                    token.ExpiresAt = expiry;
+                }
+                else
+                {
+                    DynamicParameters parameters = new();
+                    parameters.Add("@ManagerId", userId);
+                    parameters.Add("@AccessToken", accessToken);
+                    parameters.Add("@RefreshUserToken", refreshToken);
+                    parameters.Add("@ExpiresAt", expiry);
+                    parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+                    repository.Execute(StoredProcedures.REFRESH_TOKEN_MANAGER_INSERT, parameters);
+
+                    int result = parameters.Get<int>("@Result");
+                    if (result != 1)
+                    {
+                        throw new Exception("Error generating refresh token for manager.");
+                    }
                 }
             }
-            else if (Role == Enums.Roles.Manager.ToString())
+            else if (role != UMS.Enums.Roles.Admin.ToString())
             {
-                var existingToken = dbContext.RefreshTokenManagers.FirstOrDefault(t => t.ManagerId == userId);
-                if (existingToken != null)
-                {
-                    existingToken.RefreshUserToken = refreshToken;
-                    existingToken.ExpiresAt = expiryDate;
-                    dbContext.SaveChanges();
-                    return refreshToken;
-                }
-            }
-            else if(Role == Enums.Roles.Admin.ToString())
-            {
-                return refreshToken;
-            }
-            else
-            {
-
                 throw new ArgumentException("Invalid role specified for refresh token generation.");
             }
-            return string.Empty;
+
+            return refreshToken;
         }
     }
 }

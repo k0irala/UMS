@@ -15,5 +15,13 @@
         public const string MANAGER_REGISTER = "usp_RegisterManager";
         public const string USER_REGISTER = "dbo.usp_RegisterUser";
         #endregion
+
+        #region OTP
+        public const string OTP_INSERT = "usp_InsertOTP";
+        #endregion
+
+        #region Manager
+        public const string REFRESH_TOKEN_MANAGER_INSERT = "usp_RefreshTokenManagerInsert";
+        #endregion
     }
 }

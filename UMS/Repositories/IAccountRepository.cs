@@ -1,17 +1,18 @@
 ﻿using System.Net;
 using UMS.Models;
+using UMS.Models.Employee;
 
 namespace UMS.Repositories
 {
     public interface IAccountRepository
     {
-        LoginResponseModel Login(LoginRequestModel requestModel);
+        (bool IsValid,LoginResponseModel? token) Login(LoginRequestModel requestModel);
         LoginResponseModel RefreshToken(string token, string refreshToken);
         bool Logout(string token);
-        HttpStatusCode UserRegister(UserRegisterModel requestModel);
+        HttpStatusCode UserRegister(AddEmployee requestModel);
         HttpStatusCode ManagerRegister(ManagerRegisterModel requestModel);
         public string GenerateNewOtp();
-        public Task SendOtpMail(string email, string otp,string userName);
+        public Task SendOtpMail(LoginRequestModel model);
         public string GenerateEmailBody(string userName,string otp);
 
     }

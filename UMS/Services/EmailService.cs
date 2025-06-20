@@ -16,10 +16,8 @@ public class EmailService: IEmailService
     }
     public async Task SendEmail(MailRequestModel request)
     {
-        var email = new MimeMessage
-        {
-            Sender = MailboxAddress.Parse(emailSettings.Email)
-        };
+        var email = new MimeMessage();
+        email.Sender = MailboxAddress.Parse(emailSettings.Email);
         email.To.Add(MailboxAddress.Parse(request.Email));
         email.Subject = request.Subject;
         var builder = new BodyBuilder
