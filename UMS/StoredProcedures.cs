@@ -14,6 +14,7 @@
         #region Account
         public const string MANAGER_REGISTER = "usp_RegisterManager";
         public const string USER_REGISTER = "dbo.usp_RegisterUser";
+        public const string PASSWORD_RESET = "usp_ResetPassword";
         #endregion
 
         #region OTP
@@ -22,6 +23,16 @@
 
         #region Manager
         public const string REFRESH_TOKEN_MANAGER_INSERT = "usp_RefreshTokenManagerInsert";
+        #endregion
+        
+        #region Employee
+        public const string REFRESH_TOKEN_EMPLOYEE_INSERT = "usp_RefreshTokenEmployeeInsert";
+        #endregion
+        
+        #region Attendance
+        public const string GET_ALL_EMP_ATTENDANCE = "usp_GetAllEmployeeAttendance";
+        public const string GET_EMP_ATTENDANCE_BY_ID = "usp_GetAllEmployeeAttendanceByID";
+        public const string GET_EMP_ATTENDANCE = "usp_GetEmployeeAttendance";
         #endregion
     }
 }

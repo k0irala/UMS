@@ -103,8 +103,36 @@ namespace UMS.Repositories
             return new Random().Next(100000, 999999).ToString(); // 6-digit OTP
         }
 
-        public async Task SendOtpMail(LoginRequestModel model)
+        public async Task SendOtpMail(LoginRequestModel model,bool isForgorPassword)
         {
+            var otp = GenerateNewOtp();
+            if (isForgorPassword)
+            {
+                var emp = empService.GetEmployeeByEmail(model.UserName);
+                if (emp == null)
+                    throw new ArgumentException("Invalid email address.");
+                model.UserName = emp.UserName;
+
+                var param = new DynamicParameters();
+                param.Add("@Otp", otp);
+                param.Add("@Email",emp.Email );
+                param.Add("@CreatedAt", DateTime.Now);
+                param.Add("@ExpiresAt", DateTime.Now.AddMinutes(5));
+                param.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+                repository.Execute(StoredProcedures.OTP_INSERT, param);
+
+                var requestMail = new MailRequestModel
+                {
+                    Email = emp.Email,
+                    Subject = "The OTP for Logging in is:",
+                    Body = GenerateEmailBody(model.UserName, otp)
+                };
+
+                await emailService.SendEmail(requestMail);
+                return;
+                // Handle forgot password case
+
+            }
             if (model.UserName == ConstantValues.ADMIN_DEFAULT_USERNAME &&
                 model.Password == ConstantValues.ADMIN_DEFAULT_PASSWORD)
                 return; // Skip OTP for admin
@@ -123,7 +151,7 @@ namespace UMS.Repositories
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("Invalid username or password.");
 
-            var otp = GenerateNewOtp();
+            
 
             var parameters = new DynamicParameters();
             parameters.Add("@Otp", otp);

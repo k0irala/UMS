@@ -4,7 +4,7 @@ using UMS.Models.Entities;
 
 namespace UMS.Services
 {
-    
+
     public class EmployeeService : IEmployeeService
     {
         private readonly ApplicationDbContext _dbContext;
@@ -14,9 +14,17 @@ namespace UMS.Services
             _dbContext = dbContext;
         }
 
+        public Employee? GetEmployeeByEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Email cannot be null or empty.");
+            }
+            return _dbContext.Employees.FirstOrDefault(e => e.Email == email);
+        }
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
-            if( id == 0)
+            if (id == 0)
             {
                 throw new ArgumentException("Invalid employee ID.");
             }
@@ -54,6 +62,22 @@ namespace UMS.Services
         public async Task<bool> IsEmailUniqueAsync(string email)
         {
             return !await _dbContext.Employees.AnyAsync(e => e.Email == email);
+        }
+        public string GetEmployeeEmail(string otp)
+        {
+            if (string.IsNullOrWhiteSpace(otp))
+            {
+                throw new ArgumentException("OTP cannot be null or empty.");
+            }
+            var employee = _dbContext.LoginVerificationOTPs.FirstOrDefault(e => e.OTP == otp);
+            if (employee != null)
+            {
+                return employee.Email ?? throw new ArgumentException("Employee email is null.");
+            }
+            else
+            {
+                throw new ArgumentException("Employee with the specified OTP does not exist.");
+            }
         }
     }   
 }

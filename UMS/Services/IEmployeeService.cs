@@ -1,6 +1,7 @@
 using UMS.Models.Entities;
 
 namespace UMS.Services;
+
 public interface IEmployeeService
 {
     Task<Employee> GetEmployeeByIdAsync(int id);
@@ -9,4 +10,6 @@ public interface IEmployeeService
     Task<bool> UpdateEmployeeAsync(Employee employee);
     Task<bool> DeleteEmployeeAsync(int id);
     Task<bool> IsEmailUniqueAsync(string email);
+    string GetEmployeeEmail(string email);
+    Employee GetEmployeeByEmail(string email);
 }

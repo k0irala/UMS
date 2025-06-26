@@ -1,4 +1,6 @@
-﻿namespace UMS.Models.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace UMS.Models.Entities
 {
     public class Employee
     {
@@ -10,6 +12,7 @@
         public string Email { get; set; } = string.Empty;
         public int DesignationId { get; set; } 
         public int ManagerId { get; set; } 
+        [NotMapped]
         public ICollection<RefreshTokenEmployee> RefreshTokens { get; set; } = [];
     }
 }

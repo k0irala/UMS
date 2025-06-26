@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 namespace UMS.Services
 {
-    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository)
+    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository, IEmployeeService empService)
     {
         // 1. Validate credentials only (NO token generation)
         public (bool IsValid, LoginResponseModel? Token) ValidateLoginCredentials(LoginRequestModel request)
@@ -32,7 +32,7 @@ namespace UMS.Services
                     ConstantValues.ADMIN_DEFAULT_USERNAME,
                     UMS.Enums.Roles.Admin.ToString());
 
-                return (true, token); 
+                return (true, token);
             }
 
             var employee = dbContext.Employees
@@ -48,15 +48,31 @@ namespace UMS.Services
 
             if (manager != null)
             {
-                return (true, null); 
+                return (true, null);
             }
 
-            return (false, null); 
+            return (false, null);
         }
 
         // 2. Verify OTP and generate token if valid
-        public LoginResponseModel VerifyOtp(string otp, string email)
+        public LoginResponseModel VerifyOtp(string otp, bool isForgotPassword = false)
         {
+            String email = String.Empty;
+            string empEmail = empService.GetEmployeeEmail(otp);
+            string managerEmail = ConstantValues.MANAGER_DEFAULT_EMAIL;
+
+            if (!string.IsNullOrWhiteSpace(empEmail))
+            {
+                email = empEmail;
+            }
+            else if (!string.IsNullOrWhiteSpace(managerEmail))
+            {
+                email = managerEmail;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid OTP or email.");
+            }
 
 
             if (string.IsNullOrWhiteSpace(otp))
@@ -73,7 +89,7 @@ namespace UMS.Services
                 dbContext.SaveChanges();
             }
             if (existingOtp.ExpiresAt < DateTime.Now)
-                    throw new ArgumentException("OTP has expired.");
+                throw new ArgumentException("OTP has expired.");
 
             var employee = dbContext.Employees.FirstOrDefault(e => e.Email == existingOtp.Email);
             Manager? manager = null;
@@ -156,14 +172,20 @@ namespace UMS.Services
                 }
                 else
                 {
-                    dbContext.RefreshTokenEmployees.Add(new RefreshTokenEmployee
+                    DynamicParameters parameters = new();
+                    parameters.Add("@EmployeeId", userId);
+                    parameters.Add("@AccessToken", accessToken);
+                    parameters.Add("@RefreshUserToken", refreshToken);
+                    parameters.Add("@ExpiresAt", expiry);
+                    parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+                    repository.Execute(StoredProcedures.REFRESH_TOKEN_EMPLOYEE_INSERT, parameters);
+
+                    int result = parameters.Get<int>("@Result");
+                    if (result != 1)
                     {
-                        EmployeeId = userId,
-                        RefreshUserToken = refreshToken,
-                        ExpiresAt = expiry
-                    });
+                        throw new Exception("Error generating refresh token for employee.");
+                    }
                 }
-                dbContext.SaveChanges();
             }
             else if (role == UMS.Enums.Roles.Manager.ToString())
             {
@@ -196,6 +218,25 @@ namespace UMS.Services
             }
 
             return refreshToken;
+        }
+        public string PasswordReset(string password,string email)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException("Password cannot be null or empty.");
+            }
+
+            DynamicParameters parameters = new();
+            parameters.Add("@Password", password);
+            parameters.Add("@Email", email);
+            parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+            repository.Execute(StoredProcedures.PASSWORD_RESET, parameters);
+            int result = parameters.Get<int>("@Result");
+            if (result != 1)
+            {
+                throw new Exception("Error resetting password.");
+            }
+            return "Password reset successfully.";
         }
     }
 }
