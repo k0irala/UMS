@@ -109,6 +109,16 @@ namespace UMS.Services
             return GenerateAccessToken(id, fullName, existingOtp.Email, userName, role);
         }
 
+
+        public string UserRole(LoginResponseModel response)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(response.AccessToken);
+            var roleClaim = jwtToken.Claims.FirstOrDefault(c =>
+                c.Type == ClaimTypes.Role || c.Type == "role")?.Value;
+            return roleClaim ?? "";
+        }
+        
         // 3. Token generation logic (JWT + Refresh)
         private LoginResponseModel GenerateAccessToken(int id, string fullName, string email, string userName, string role)
         {

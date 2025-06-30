@@ -12,5 +12,7 @@ namespace UMS.Services
         Task<Manager> ManagerData(string userName, string password);
 
         Manager GetManagerByDesignation(int designationId);
+        Employee GetEmployeeByManager(int managerId);
+        HttpStatusCode ChangeManagerEmail(int managerId,string email);
     }
 }

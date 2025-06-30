@@ -42,5 +42,21 @@ namespace UMS.Services
             return dbContext.Managers
                 .FirstOrDefault(m => m.DesignationId == designationId) ?? new Manager();
         }
+
+        public Employee GetEmployeeByManager(int managerId)
+        {
+            return dbContext.Employees.FirstOrDefault(e => e.ManagerId == managerId);
+        }
+
+        public HttpStatusCode ChangeManagerEmail(int managerId,string email)
+        {
+            var existingManager = dbContext.Managers.SingleOrDefault(x=>x.Id == managerId);
+            if(existingManager == null)
+                return HttpStatusCode.NotFound;
+            existingManager.Email = email;
+            dbContext.Update(existingManager);
+            dbContext.SaveChanges();
+            return HttpStatusCode.OK;
+        }
     }
 }

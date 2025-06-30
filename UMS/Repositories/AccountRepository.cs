@@ -2,10 +2,11 @@
 using FluentValidation;
 using FluentValidation.Results;
 using System.Net;
-using UMS.Enums;
 using UMS.Models;
 using UMS.Models.Employee;
+using UMS.Models.Entities;
 using UMS.Services;
+using Roles = UMS.Enums.Roles;
 
 namespace UMS.Repositories
 {
@@ -69,8 +70,11 @@ namespace UMS.Repositories
 
         public HttpStatusCode UserRegister(AddEmployee request)
         {
-            var manager = managerService.GetManagerByDesignation(request.DesignationId)
-                ?? throw new ArgumentException("Manager not found for the given designation.");
+            var manager = managerService.GetManagerByDesignation(request.DesignationId);
+            if (manager == null || string.IsNullOrEmpty(manager.UserName))
+            {
+                return HttpStatusCode.NotFound;
+            }
 
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
@@ -95,9 +99,6 @@ namespace UMS.Repositories
                 _ => throw new Exception("An error occurred while registering the employee.")
             };
         }
-
-        public string ForgetPassword() => string.Empty;
-
         public string GenerateNewOtp()
         {
             return new Random().Next(100000, 999999).ToString(); // 6-digit OTP

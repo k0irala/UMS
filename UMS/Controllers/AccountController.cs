@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Security.Claims;
+using FluentValidation;
+using FluentValidation.Results;
 using UMS.Models;
 using UMS.Models.Employee;
 using UMS.Repositories;
@@ -10,18 +14,24 @@ namespace UMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController(IAccountRepository accRepository, JWTService jWTService) : ControllerBase
+    public class AccountController(IAccountRepository accRepository, JWTService jWtService,IValidator<AddEmployee> empValidator,IManagerService managerService) : ControllerBase
     {
         [HttpPost("EmployeeRegister")]
         [AllowAnonymous]
         public IActionResult Register(AddEmployee emp)
         {
+            var validate = empValidator.Validate(emp);
+            if (!validate.IsValid) return BadRequest(validate);
             var result = accRepository.UserRegister(emp);
 
-            if (result == HttpStatusCode.OK) { return Ok("Employee Registered Successfully"); }
-            else if (result == HttpStatusCode.Conflict) { return Conflict("Duplicate Employee Exists"); }
-            else if (result == HttpStatusCode.BadRequest) { return BadRequest("Invalid Employee Data"); }
-            else return Conflict("Error in Registering Employee to the database");
+            return result switch
+            {
+                HttpStatusCode.OK => Ok("Employee Registered Successfully"),
+                HttpStatusCode.Conflict => Conflict("Email Already Registered"),
+                HttpStatusCode.BadRequest => BadRequest("Invalid Employee Data"),
+                HttpStatusCode.NotFound=> NotFound("Manager Not Found in the given designation"),
+                _ => Conflict("Error in Registering Employee to the database")
+            };
         }
 
         [HttpPost("ManagerRegister")]
@@ -31,8 +41,8 @@ namespace UMS.Controllers
             var result = accRepository.ManagerRegister(managerModel);
 
             if (result == HttpStatusCode.OK) { return Ok("Manager Registered Successfully"); }
-            else if (result == HttpStatusCode.Conflict) { return Conflict("Duplicate Manager Exists"); }
-            else return Conflict("Error in Registering Manager to the database");
+
+            return Conflict(result == HttpStatusCode.Conflict ? "Duplicate Manager Exists" : "Error in Registering Manager to the database");
         }
         [HttpPost("Login")]
         [AllowAnonymous]
@@ -55,8 +65,11 @@ namespace UMS.Controllers
         [AllowAnonymous]
         public IActionResult VerifyOtp(string OTP)
         {
-            var response = jWTService.VerifyOtp(OTP, false);
+            var response = jWtService.VerifyOtp(OTP, false);
             HttpContext.Session.SetString("Email", response.Email);
+            HttpContext.Session.SetString("DesignationId",response.UserId);
+            var role = jWtService.UserRole(response);
+            HttpContext.Session.SetString("Role", role);    
             return Ok(response);
         }
         [HttpPost("ForgotPassword")]
@@ -64,13 +77,13 @@ namespace UMS.Controllers
         public async Task<IActionResult> ForgotPassword(string email)
         {
             HttpContext.Session.SetString("Email", email);
-            var isForgorPassword = true;
+            const bool isForgotPassword = true;
             if (string.IsNullOrEmpty(email))
             {
                 return BadRequest("Email are required.");
             }
 
-            await accRepository.SendOtpMail(new LoginRequestModel { UserName = email }, isForgorPassword);
+            await accRepository.SendOtpMail(new LoginRequestModel { UserName = email }, isForgotPassword);
 
             return Ok("Otp has been sent to your email. Please verify to continue.");
         }
@@ -85,7 +98,7 @@ namespace UMS.Controllers
 
             HttpContext.Session.TryGetValue("Email", out var emailBytes);
             var email = emailBytes != null ? System.Text.Encoding.UTF8.GetString(emailBytes) : null;
-            var response = jWTService.PasswordReset(model.NewPassword, email);
+            var response = jWtService.PasswordReset(model.NewPassword, email);
             if (response != null)
             {
                 return Ok("Password reset successfully.");
@@ -94,6 +107,19 @@ namespace UMS.Controllers
             {
                 return BadRequest("Invalid OTP or password reset failed.");
             }
+        }
+
+        [HttpPost("ManagerEmail")]
+        [Authorize(Roles="Admin")]
+        public IActionResult ChangeEmail(int managerId,string email)
+        {
+            var manager = managerService.ChangeManagerEmail(managerId,email);
+
+            if (manager == HttpStatusCode.OK)
+                return Ok("The email of the manager has been changed!!");
+            return BadRequest(manager);
+
+
         }
         
     }

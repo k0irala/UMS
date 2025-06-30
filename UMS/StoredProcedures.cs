@@ -33,6 +33,7 @@
         public const string GET_ALL_EMP_ATTENDANCE = "usp_GetAllEmployeeAttendance";
         public const string GET_EMP_ATTENDANCE_BY_ID = "usp_GetAllEmployeeAttendanceByID";
         public const string GET_EMP_ATTENDANCE = "usp_GetEmployeeAttendance";
+        public const string ADD_EMP_ATTENDANCE = "usp_AddEmployeeAttendance";
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UMS.Models;
 using UMS.Models.Entities;
 using UMS.Repositories.AttendanceRepo;
 
@@ -38,10 +39,15 @@ public class AttendanceController(IEmployeeAttendanceRepository employeeAttendan
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin,Manager")]
-    public IActionResult CreateAttendance(Attendance value)
+    [Authorize(Roles = "Admin")]
+    public IActionResult CreateAttendance(AttendanceModel value,int employeeId)
     {
-        
+        HttpContext.Session.TryGetValue("Email", out var emailBytes);
+        var email = emailBytes != null ? System.Text.Encoding.UTF8.GetString(emailBytes) : null;
+        if (email == null) return BadRequest("No Attendance Found");
+        var role = HttpContext.Session.GetString("Role");
+        if (role == null) return BadRequest("No Role Found");
+        employeeAttendanceRepository.CreateEmployeeAttendance(value,employeeId, role);
         return Ok();
     }
 }
