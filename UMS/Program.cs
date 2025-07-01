@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using UMS.Data;
+using UMS.Encryption;
 using UMS.Models;
 using UMS.Models.Designation;
 using UMS.Models.Employee;
@@ -34,6 +35,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IValidator<AddDesignationModel>, AddDesignationValidator>();
 builder.Services.AddScoped<IValidator<int>, DeleteDesignationValidator>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<AesEncryption>();
 builder.Services.AddScoped<IValidator<ManagerRegisterModel>, ManagerRegisterValidator>();
 builder.Services.AddSwaggerGen(options =>
 {

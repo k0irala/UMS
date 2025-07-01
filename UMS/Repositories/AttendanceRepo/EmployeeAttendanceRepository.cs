@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using Dapper;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using UMS.Models;
+using UMS.Models.Employee;
 using UMS.Models.Entities;
 using UMS.Services;
 
@@ -8,11 +10,11 @@ namespace UMS.Repositories.AttendanceRepo;
 
 public class EmployeeAttendanceRepository(IDapperRepository repository,IEmployeeService employeeService,IManagerService managerService) : IEmployeeAttendanceRepository
 {
-    public IEnumerable<Attendance> GetAttendance()
+    public IDictionary<string,EmployeeAttendanceModel> GetAttendance()
     {
         DynamicParameters parameters = new();
-        var result = repository.Query<Attendance>(StoredProcedures.GET_ALL_EMP_ATTENDANCE,parameters);
-        return result;
+        var result = repository.Query<EmployeeAttendanceModel>(StoredProcedures.GET_ALL_EMP_ATTENDANCE,parameters);
+        return result.ToDictionary(k => k.EmployeeName, v => v);
     }
 
     public IEnumerable<Attendance> GetEmployeeAttendance(int employeeId)

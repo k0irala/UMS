@@ -2,6 +2,8 @@
 using FluentValidation;
 using FluentValidation.Results;
 using System.Net;
+using System.Text;
+using UMS.Encryption;
 using UMS.Models;
 using UMS.Models.Employee;
 using UMS.Models.Entities;
@@ -15,9 +17,13 @@ namespace UMS.Repositories
         IDapperRepository repository,
         JWTService jwtService,
         IEmailService emailService,
+        IConfiguration configuration,
         IEmployeeService empService,
-        IManagerService managerService) : IAccountRepository
+        IManagerService managerService,
+        AesEncryption aesEncryption) : IAccountRepository
     {
+        private readonly byte[] _key = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionKey"] ?? string.Empty);
+        private readonly byte[] _iv = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionIV"] ?? string.Empty);
         public (bool IsValid, LoginResponseModel? token) Login(LoginRequestModel request)
         {
             ArgumentNullException.ThrowIfNull(request);
@@ -43,17 +49,18 @@ namespace UMS.Repositories
             if (!validation.IsValid)
                 return HttpStatusCode.BadRequest;
 
+            var encryptedPass = aesEncryption.EncryptString(request.Password,_key,_iv);
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
             parameters.Add("@UserName", request.UserName);
-            parameters.Add("@Password", request.Password);
+            parameters.Add("@Password",encryptedPass);
             parameters.Add("@Email", ConstantValues.MANAGER_DEFAULT_EMAIL);
             parameters.Add("@DesignationId", request.DesignationId);
             parameters.Add("@RoleId", Roles.Manager);
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
             repository.Execute(StoredProcedures.MANAGER_REGISTER, parameters);
-            int result = parameters.Get<int>("@Result");
+            var result = parameters.Get<int>("@Result");
 
             return result switch
             {
@@ -75,12 +82,12 @@ namespace UMS.Repositories
             {
                 return HttpStatusCode.NotFound;
             }
-
+            var encryptedPass = aesEncryption.EncryptString(request.Password,_key,_iv);
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
             parameters.Add("@UserName", request.UserName);
             parameters.Add("@Code", GenerateRandomEmpCode());
-            parameters.Add("@Password", request.Password);
+            parameters.Add("@Password", encryptedPass);
             parameters.Add("@Email", request.Email);
             parameters.Add("@DesignationId", request.DesignationId);
             parameters.Add("@ManagerId", manager.Id);
@@ -131,12 +138,11 @@ namespace UMS.Repositories
 
                 await emailService.SendEmail(requestMail);
                 return;
-                // Handle forgot password case
 
             }
             if (model.UserName == ConstantValues.ADMIN_DEFAULT_USERNAME &&
                 model.Password == ConstantValues.ADMIN_DEFAULT_PASSWORD)
-                return; // Skip OTP for admin
+                return;
 
             string? email = null;
             var employee = await empService.EmployeeData(model.UserName, model.Password);

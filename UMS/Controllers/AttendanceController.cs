@@ -42,9 +42,6 @@ public class AttendanceController(IEmployeeAttendanceRepository employeeAttendan
     [Authorize(Roles = "Admin")]
     public IActionResult CreateAttendance(AttendanceModel value,int employeeId)
     {
-        HttpContext.Session.TryGetValue("Email", out var emailBytes);
-        var email = emailBytes != null ? System.Text.Encoding.UTF8.GetString(emailBytes) : null;
-        if (email == null) return BadRequest("No Attendance Found");
         var role = HttpContext.Session.GetString("Role");
         if (role == null) return BadRequest("No Role Found");
         employeeAttendanceRepository.CreateEmployeeAttendance(value,employeeId, role);

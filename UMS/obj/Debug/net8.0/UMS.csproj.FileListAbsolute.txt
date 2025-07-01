@@ -347,3 +347,5 @@ D:\NET_PROJECT\UMS\UMS\obj\Debug\net8.0\refint\UMS.dll
 D:\NET_PROJECT\UMS\UMS\obj\Debug\net8.0\UMS.pdb
 D:\NET_PROJECT\UMS\UMS\obj\Debug\net8.0\UMS.genruntimeconfig.cache
 D:\NET_PROJECT\UMS\UMS\obj\Debug\net8.0\ref\UMS.dll
+D:\NET_PROJECT\UMS\UMS\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
+D:\NET_PROJECT\UMS\UMS\bin\Debug\net8.0\StackExchange.Redis.dll

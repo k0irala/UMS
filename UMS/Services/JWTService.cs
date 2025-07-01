@@ -11,11 +11,14 @@ using UMS.Repositories;
 using Dapper;
 using Azure.Core;
 using System.Diagnostics;
+using UMS.Encryption;
 
 namespace UMS.Services
 {
-    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository, IEmployeeService empService)
+    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository, IEmployeeService empService,AesEncryption aesEncryption)
     {
+        private readonly byte[] _key = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionKey"] ?? string.Empty);
+        private readonly byte[] _iv = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionIV"] ?? string.Empty);
         // 1. Validate credentials only (NO token generation)
         public (bool IsValid, LoginResponseModel? Token) ValidateLoginCredentials(LoginRequestModel request)
         {
@@ -35,8 +38,9 @@ namespace UMS.Services
                 return (true, token);
             }
 
+            string decryptedPass = aesEncryption.DecryptString(request.Password,_key,_iv);
             var employee = dbContext.Employees
-                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == request.Password);
+                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == decryptedPass);
 
             if (employee != null)
             {
@@ -44,7 +48,7 @@ namespace UMS.Services
             }
 
             var manager = dbContext.Managers
-                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == request.Password);
+                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == decryptedPass);
 
             if (manager != null)
             {
@@ -57,9 +61,9 @@ namespace UMS.Services
         // 2. Verify OTP and generate token if valid
         public LoginResponseModel VerifyOtp(string otp, bool isForgotPassword = false)
         {
-            String email = String.Empty;
-            string empEmail = empService.GetEmployeeEmail(otp);
-            string managerEmail = ConstantValues.MANAGER_DEFAULT_EMAIL;
+            string email;
+            var empEmail = empService.GetEmployeeEmail(otp);
+            const string managerEmail = ConstantValues.MANAGER_DEFAULT_EMAIL;
 
             if (!string.IsNullOrWhiteSpace(empEmail))
             {
@@ -104,7 +108,7 @@ namespace UMS.Services
             var id = isEmployee ? employee.Id : manager!.Id;
             var fullName = isEmployee ? employee.FullName : manager!.FullName;
             var userName = isEmployee ? employee.UserName : manager!.UserName;
-            var role = isEmployee ? UMS.Enums.Roles.Employee.ToString() : UMS.Enums.Roles.Manager.ToString();
+            var role = isEmployee ? Enums.Roles.Employee.ToString() : UMS.Enums.Roles.Manager.ToString();
 
             return GenerateAccessToken(id, fullName, existingOtp.Email, userName, role);
         }

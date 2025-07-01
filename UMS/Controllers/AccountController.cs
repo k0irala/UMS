@@ -49,15 +49,17 @@ namespace UMS.Controllers
         public async Task<IActionResult> Login(LoginRequestModel model)
         {
             HttpContext.Session.SetString("UserName", model.UserName);
-            var isForgotPassword = false;
+            const bool isForgotPassword = false;
             var (isValidUser, token) = accRepository.Login(model);
             if (!isValidUser)
             {
                 return Unauthorized("Invalid username or password.");
             }
+            var role = jWtService.UserRole(token);
+            HttpContext.Session.SetString("Role", role);  
             if (token != null)
                 return Ok(token);
-
+            
             await accRepository.SendOtpMail(model, isForgotPassword);
             return Ok("OTP sent to your email. Please verify to continue.");
         }
@@ -68,8 +70,6 @@ namespace UMS.Controllers
             var response = jWtService.VerifyOtp(OTP, false);
             HttpContext.Session.SetString("Email", response.Email);
             HttpContext.Session.SetString("DesignationId",response.UserId);
-            var role = jWtService.UserRole(response);
-            HttpContext.Session.SetString("Role", role);    
             return Ok(response);
         }
         [HttpPost("ForgotPassword")]
@@ -118,8 +118,6 @@ namespace UMS.Controllers
             if (manager == HttpStatusCode.OK)
                 return Ok("The email of the manager has been changed!!");
             return BadRequest(manager);
-
-
         }
         
     }
