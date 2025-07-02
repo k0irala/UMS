@@ -7,7 +7,7 @@ namespace UMS.Repositories.AttendanceRepo;
 
 public interface IEmployeeAttendanceRepository
 {
-    IDictionary<string,EmployeeAttendanceModel> GetAttendance();
+    IDictionary<string,List<EmployeeAttendanceModel>> GetAttendance();
     IEnumerable<Attendance> GetEmployeeAttendance(int employeeId);
 
     IEnumerable<Attendance> GetAttendanceByEmp(string email);

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Diagnostics;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UMS.Models;
 using UMS.Models.Entities;
@@ -43,8 +45,13 @@ public class AttendanceController(IEmployeeAttendanceRepository employeeAttendan
     public IActionResult CreateAttendance(AttendanceModel value,int employeeId)
     {
         var role = HttpContext.Session.GetString("Role");
-        if (role == null) return BadRequest("No Role Found");
-        employeeAttendanceRepository.CreateEmployeeAttendance(value,employeeId, role);
-        return Ok();
+        var result = employeeAttendanceRepository.CreateEmployeeAttendance(value,employeeId, role);
+        return result switch
+        {
+            HttpStatusCode.BadRequest => BadRequest("Invalid Attendance Data"),
+            HttpStatusCode.Conflict => Conflict("Email Already Registered"),
+            HttpStatusCode.OK => Ok("Attendance Registered Successfully"),
+            _ => Conflict("The Attendance cannot be registered!")
+        };
     }
 }

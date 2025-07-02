@@ -37,23 +37,20 @@ namespace UMS.Services
 
                 return (true, token);
             }
-
-            string decryptedPass = aesEncryption.DecryptString(request.Password,_key,_iv);
             var employee = dbContext.Employees
-                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == decryptedPass);
+                .FirstOrDefault(u => u.UserName == request.UserName);
 
-            if (employee != null)
-            {
+            if (employee == null) return (false, null);
+            var decryptedPass = aesEncryption.DecryptString(employee.Password,_key,_iv);
+
+            if (decryptedPass == request.Password)
                 return (true, null);
-            }
 
             var manager = dbContext.Managers
                 .FirstOrDefault(u => u.UserName == request.UserName && u.Password == decryptedPass);
 
             if (manager != null)
-            {
                 return (true, null);
-            }
 
             return (false, null);
         }
@@ -82,8 +79,14 @@ namespace UMS.Services
             if (string.IsNullOrWhiteSpace(otp))
                 throw new ArgumentException("OTP cannot be null or empty.");
 
-            var existingOtp = dbContext.LoginVerificationOTPs.FirstOrDefault(o => o.OTP == otp && o.Email == email)
-                              ?? throw new ArgumentException("Invalid OTP.");
+            var existingOtp = dbContext.LoginVerificationOTPs.FirstOrDefault(o => o.OTP == otp && o.Email == email);
+            if (existingOtp == null)
+            {
+                return new LoginResponseModel()
+                {
+                    AccessToken = "Invalid OTP"
+                };
+            }
 
             var deleteExistingOtp = dbContext.LoginVerificationOTPs
                 .FirstOrDefault(o => o.Email == email && o.OTP == otp);
@@ -93,7 +96,7 @@ namespace UMS.Services
                 dbContext.SaveChanges();
             }
             if (existingOtp.ExpiresAt < DateTime.Now)
-                throw new ArgumentException("OTP has expired.");
+                return new LoginResponseModel();
 
             var employee = dbContext.Employees.FirstOrDefault(e => e.Email == existingOtp.Email);
             Manager? manager = null;

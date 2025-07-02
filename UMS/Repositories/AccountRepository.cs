@@ -111,7 +111,7 @@ namespace UMS.Repositories
             return new Random().Next(100000, 999999).ToString(); // 6-digit OTP
         }
 
-        public async Task SendOtpMail(LoginRequestModel model,bool isForgorPassword)
+        public async Task<OTPResultModel> SendOtpMail(LoginRequestModel model,bool isForgorPassword)
         {
             var otp = GenerateNewOtp();
             if (isForgorPassword)
@@ -128,6 +128,16 @@ namespace UMS.Repositories
                 param.Add("@ExpiresAt", DateTime.Now.AddMinutes(5));
                 param.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
                 repository.Execute(StoredProcedures.OTP_INSERT, param);
+                
+                var result = param.Get<int>("@Result");
+                if (result == -1)
+                {
+                    return new OTPResultModel()
+                    {
+                        Success = false,
+                        ErrorMessage = "OTP already exists resend after 5 minutes."
+                    };
+                }
 
                 var requestMail = new MailRequestModel
                 {
@@ -137,15 +147,19 @@ namespace UMS.Repositories
                 };
 
                 await emailService.SendEmail(requestMail);
-                return;
+                return new OTPResultModel()
+                {
+                    Success = true,
+                    ErrorMessage = ""
+                };
 
             }
             if (model.UserName == ConstantValues.ADMIN_DEFAULT_USERNAME &&
                 model.Password == ConstantValues.ADMIN_DEFAULT_PASSWORD)
-                return;
+                return new OTPResultModel(){Success = true,ErrorMessage = ""};
 
             string? email = null;
-            var employee = await empService.EmployeeData(model.UserName, model.Password);
+            var employee = await empService.EmployeeData(model.UserName);
             if (employee != null)
             {
                 email = employee.Email;
@@ -156,10 +170,8 @@ namespace UMS.Repositories
             }
 
             if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Invalid username or password.");
-
+                return new OTPResultModel(){Success = false,ErrorMessage = "Invalid email address."};
             
-
             var parameters = new DynamicParameters();
             parameters.Add("@Otp", otp);
             parameters.Add("@Email", email);
@@ -167,6 +179,17 @@ namespace UMS.Repositories
             parameters.Add("@ExpiresAt", DateTime.Now.AddMinutes(5));
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
             repository.Execute(StoredProcedures.OTP_INSERT, parameters);
+            
+            var res = parameters.Get<int>("@Result");
+            if (res == -1)
+            {
+                return new OTPResultModel()
+                {
+                    Success = false,
+                    ErrorMessage = "OTP already exists resend after 5 minutes."
+                };
+            }
+
 
             var mailRequest = new MailRequestModel
             {
@@ -176,6 +199,7 @@ namespace UMS.Repositories
             };
 
             await emailService.SendEmail(mailRequest);
+            return new OTPResultModel() { Success = true, ErrorMessage = "", SuccessMessage = "OTP Sent to your mail"};
         }
 
         public string GenerateEmailBody(string userName, string otp)

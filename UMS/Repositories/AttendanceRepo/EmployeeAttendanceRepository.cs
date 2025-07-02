@@ -10,11 +10,12 @@ namespace UMS.Repositories.AttendanceRepo;
 
 public class EmployeeAttendanceRepository(IDapperRepository repository,IEmployeeService employeeService,IManagerService managerService) : IEmployeeAttendanceRepository
 {
-    public IDictionary<string,EmployeeAttendanceModel> GetAttendance()
+    public IDictionary<string,List<EmployeeAttendanceModel>> GetAttendance()
     {
         DynamicParameters parameters = new();
         var result = repository.Query<EmployeeAttendanceModel>(StoredProcedures.GET_ALL_EMP_ATTENDANCE,parameters);
-        return result.ToDictionary(k => k.EmployeeName, v => v);
+        var employeeAttendanceModels = result as EmployeeAttendanceModel[] ?? result.ToArray();
+        return employeeAttendanceModels.ToDictionary(k => k.EmployeeName,res => new List<EmployeeAttendanceModel>(employeeAttendanceModels));
     }
 
     public IEnumerable<Attendance> GetEmployeeAttendance(int employeeId)
@@ -47,9 +48,10 @@ public class EmployeeAttendanceRepository(IDapperRepository repository,IEmployee
         var employees = managerService.GetEmployeeByManager(manager.Id);
         if (employees == null)
             return HttpStatusCode.BadRequest;
+        var attendanceDate = attendance.Date.Date;
         
         DynamicParameters parameters = new();
-        parameters.Add("@Date", attendance.Date);
+        parameters.Add("@Date", attendanceDate);
         parameters.Add("@CheckinTime", attendance.CheckInTime);
         parameters.Add("@CheckoutTime", attendance.CheckOutTime);
         parameters.Add("@IsPresent", attendance.IsPresent);

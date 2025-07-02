@@ -31,9 +31,9 @@ namespace UMS.Services
             return await _dbContext.Employees.FindAsync(id);
         }
 
-        public async Task<Employee> EmployeeData(string userName, string password)
+        public async Task<Employee> EmployeeData(string userName)
         {
-            return await _dbContext.Employees.FirstOrDefaultAsync(e => e.UserName == userName && e.Password == password);
+            return await _dbContext.Employees.FirstOrDefaultAsync(e => e.UserName == userName);
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
@@ -67,16 +67,16 @@ namespace UMS.Services
         {
             if (string.IsNullOrWhiteSpace(otp))
             {
-                throw new ArgumentException("OTP cannot be null or empty.");
+                return "OTP is required";
             }
             var employee = _dbContext.LoginVerificationOTPs.FirstOrDefault(e => e.OTP == otp);
             if (employee != null)
             {
-                return employee.Email ?? throw new ArgumentException("Employee email is null.");
+                return employee.Email ?? "Employee email is null.";
             }
             else
             {
-                throw new ArgumentException("Employee with the specified OTP does not exist.");
+                return "Employee with the specified OTP does not exist.";
             }
         }
     }   

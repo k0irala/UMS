@@ -55,19 +55,27 @@ namespace UMS.Controllers
             {
                 return Unauthorized("Invalid username or password.");
             }
-            var role = jWtService.UserRole(token);
-            HttpContext.Session.SetString("Role", role);  
+
             if (token != null)
+            {
+                var role = jWtService.UserRole(token);
+                HttpContext.Session.SetString("Role", role);
                 return Ok(token);
+            }
             
-            await accRepository.SendOtpMail(model, isForgotPassword);
-            return Ok("OTP sent to your email. Please verify to continue.");
+            var result = await accRepository.SendOtpMail(model, isForgotPassword);
+            return Ok(result);
+            
+            
+          
         }
         [HttpPost("VerifyOtp")]
         [AllowAnonymous]
         public IActionResult VerifyOtp(string OTP)
         {
             var response = jWtService.VerifyOtp(OTP, false);
+            if (response == new LoginResponseModel())
+                return Conflict("OTP has expired");
             HttpContext.Session.SetString("Email", response.Email);
             HttpContext.Session.SetString("DesignationId",response.UserId);
             return Ok(response);
@@ -113,6 +121,8 @@ namespace UMS.Controllers
         [Authorize(Roles="Admin")]
         public IActionResult ChangeEmail(int managerId,string email)
         {
+            if (!User.IsInRole("Admin"))
+                return StatusCode(403, "You do not have permission to change manager emails.");
             var manager = managerService.ChangeManagerEmail(managerId,email);
 
             if (manager == HttpStatusCode.OK)
