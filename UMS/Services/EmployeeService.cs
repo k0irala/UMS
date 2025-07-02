@@ -1,18 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using UMS.Data;
 using UMS.Models.Entities;
+using UMS.Repositories.EmployeeManagement;
 
 namespace UMS.Services
 {
 
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService(IEmployeeRepository employeeRepository,ApplicationDbContext _dbContext) : IEmployeeService
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public EmployeeService(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
 
         public Employee? GetEmployeeByEmail(string email)
         {
@@ -36,9 +31,10 @@ namespace UMS.Services
             return await _dbContext.Employees.FirstOrDefaultAsync(e => e.UserName == userName);
         }
 
-        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
+        public List<Employee> GetAllEmployees(DataTableRequest request)
         {
-            return await _dbContext.Employees.ToListAsync();
+            var employees = employeeRepository.GetAllEmployees(request);
+            return employees.Count == 0 ? [] : employees;
         }
 
 

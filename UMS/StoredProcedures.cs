@@ -27,6 +27,7 @@
         
         #region Employee
         public const string REFRESH_TOKEN_EMPLOYEE_INSERT = "usp_RefreshTokenEmployeeInsert";
+        public const string GET_ALL_EMPLOYEE = "usp_GettAllEmployees";
         #endregion
         
         #region Attendance

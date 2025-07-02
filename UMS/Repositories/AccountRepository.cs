@@ -111,10 +111,10 @@ namespace UMS.Repositories
             return new Random().Next(100000, 999999).ToString(); // 6-digit OTP
         }
 
-        public async Task<OTPResultModel> SendOtpMail(LoginRequestModel model,bool isForgorPassword)
+        public async Task<OTPResultModel> SendOtpMail(LoginRequestModel model,bool isForgotPassword)
         {
             var otp = GenerateNewOtp();
-            if (isForgorPassword)
+            if (isForgotPassword)
             {
                 var emp = empService.GetEmployeeByEmail(model.UserName);
                 if (emp == null)
@@ -160,14 +160,7 @@ namespace UMS.Repositories
 
             string? email = null;
             var employee = await empService.EmployeeData(model.UserName);
-            if (employee != null)
-            {
-                email = employee.Email;
-            }
-            else
-            {
-                email = ConstantValues.MANAGER_DEFAULT_EMAIL;
-            }
+            email = employee.Email;
 
             if (string.IsNullOrWhiteSpace(email))
                 return new OTPResultModel(){Success = false,ErrorMessage = "Invalid email address."};
@@ -189,8 +182,6 @@ namespace UMS.Repositories
                     ErrorMessage = "OTP already exists resend after 5 minutes."
                 };
             }
-
-
             var mailRequest = new MailRequestModel
             {
                 Email = email,
