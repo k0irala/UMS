@@ -17,13 +17,10 @@ namespace UMS.Repositories
         IDapperRepository repository,
         JWTService jwtService,
         IEmailService emailService,
-        IConfiguration configuration,
-        IEmployeeService empService,
-        IManagerService managerService,
+        EmployeeService empService,
+        ManagerService managerService,
         AesEncryption aesEncryption) : IAccountRepository
     {
-        private readonly byte[] _key = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionKey"] ?? string.Empty);
-        private readonly byte[] _iv = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionIV"] ?? string.Empty);
         public (bool IsValid, LoginResponseModel? token) Login(LoginRequestModel request)
         {
             ArgumentNullException.ThrowIfNull(request);
@@ -49,7 +46,7 @@ namespace UMS.Repositories
             if (!validation.IsValid)
                 return HttpStatusCode.BadRequest;
 
-            var encryptedPass = aesEncryption.EncryptString(request.Password,_key,_iv);
+            var encryptedPass = aesEncryption.EncryptString(request.Password);
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
             parameters.Add("@UserName", request.UserName);
@@ -82,7 +79,7 @@ namespace UMS.Repositories
             {
                 return HttpStatusCode.NotFound;
             }
-            var encryptedPass = aesEncryption.EncryptString(request.Password,_key,_iv);
+            var encryptedPass = aesEncryption.EncryptString(request.Password);
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
             parameters.Add("@UserName", request.UserName);

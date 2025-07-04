@@ -23,11 +23,20 @@
 
         #region Manager
         public const string REFRESH_TOKEN_MANAGER_INSERT = "usp_RefreshTokenManagerInsert";
+        public const string ADD_MANAGER = "usp_AddManager";
+        public const string UPDATE_MANAGER = "usp_UpdateManager";
+        public const string DELETE_MANAGER = "usp_DeleteManager";
+        public const string GET_MANAGER_BY_ID = "usp_GetManagerById";
+        public const string GET_ALL_MANAGERS = "usp_GetAllManagers";
         #endregion
         
         #region Employee
         public const string REFRESH_TOKEN_EMPLOYEE_INSERT = "usp_RefreshTokenEmployeeInsert";
         public const string GET_ALL_EMPLOYEE = "usp_GettAllEmployees";
+        public const string ADD_EMPLOYEE = "usp_AddEmployee";
+        public const string GET_EMP_BY_ID = "usp_GetEmployeeById";
+        public const string DELETE_EMPLOYEE = "usp_DeleteEmployee";
+        public const string UPDATE_EMPLOYEE =  "usp_UpdateEmployee";
         #endregion
         
         #region Attendance

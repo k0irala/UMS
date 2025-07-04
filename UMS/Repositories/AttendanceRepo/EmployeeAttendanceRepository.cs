@@ -8,7 +8,7 @@ using UMS.Services;
 
 namespace UMS.Repositories.AttendanceRepo;
 
-public class EmployeeAttendanceRepository(IDapperRepository repository,IEmployeeService employeeService,IManagerService managerService) : IEmployeeAttendanceRepository
+public class EmployeeAttendanceRepository(IDapperRepository repository,EmployeeService employeeService,ManagerService managerService) : IEmployeeAttendanceRepository
 {
     public IDictionary<string,List<EmployeeAttendanceModel>> GetAttendance()
     {
@@ -39,8 +39,8 @@ public class EmployeeAttendanceRepository(IDapperRepository repository,IEmployee
     public HttpStatusCode CreateEmployeeAttendance(AttendanceModel attendance,int employeeId,string role)
     {
         if (role == "Employee") return HttpStatusCode.OK;
-        var result = employeeService.GetEmployeeByIdAsync(employeeId);
-        var empData =result?.Result;
+        var result = employeeService.GetById(employeeId);
+        var empData =result;
         if (empData == null) return HttpStatusCode.BadRequest;
         var manager = managerService.GetManagerByDesignation(empData.DesignationId);
         if (manager == null)

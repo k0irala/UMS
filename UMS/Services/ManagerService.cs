@@ -3,32 +3,44 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using UMS.Data;
 using UMS.Models.Entities;
+using UMS.Models.Manager;
+using UMS.Repositories.ManagerManagement;
 
 namespace UMS.Services
 {
-    public class ManagerService(ApplicationDbContext dbContext) : IManagerService
+    public class ManagerService(ApplicationDbContext dbContext,IManagerRepository managerRepository)
     {
-        public async Task<Manager> GetManagetById(int id)
+        public GetManagerByIdQueryResponse GetManagerById(int id)
         {
-            // Implementation to get a manager by ID
-            var existingManager = await dbContext.Managers.FindAsync(id);
-            return existingManager ?? new Manager();
+            var result = managerRepository.GetManagerById(id);
+            return result.Id == 0 ? new GetManagerByIdQueryResponse() : result;
         }
-        public async Task<IEnumerable<Manager>> GetAllManagers()
+        public List<GetManagerQueryResponse> GetAllManagers(DataTableRequest request)
         {
-            // Implementation to get all managers
-            var allManagers = await dbContext.Managers.ToListAsync();
-            return allManagers;
+            var result = managerRepository.GetAllManagers(request);
+            return result;
         }
-        public Task<HttpStatusCode> UpdateManager(Manager manager)
+        public (HttpStatusCode,bool) UpdateManager(int id,AddManager manager)
         {
             // Implementation to update a manager
-            throw new NotImplementedException();
+            var result = managerRepository.UpdateManager(id, manager);
+            return result switch
+            {
+                1 => (HttpStatusCode.OK, true),
+                -1 => (HttpStatusCode.BadRequest, false),
+                _ => (HttpStatusCode.InternalServerError, false),
+            };
         }
-        public Task<HttpStatusCode> DeleteManager(int id)
+        public (HttpStatusCode,bool) DeleteManager(int id)
         {
-            // Implementation to delete a manager
-            throw new NotImplementedException();
+           var result = managerRepository.DeleteManager(id);
+           return result switch
+           {
+               1 => (HttpStatusCode.OK, true),
+               -1 => (HttpStatusCode.NotFound, false),
+               0 => (HttpStatusCode.Conflict, false),
+               _ => (HttpStatusCode.InternalServerError, false),
+           };
         }
         public async Task<Manager> ManagerData(string userName, string password)
         {
@@ -57,6 +69,19 @@ namespace UMS.Services
             dbContext.Update(existingManager);
             dbContext.SaveChanges();
             return HttpStatusCode.OK;
+        }
+
+        public (HttpStatusCode, bool) CreateManager(AddManager manager)
+        {
+            manager.Email = manager.Email == "string" ? ConstantValues.MANAGER_DEFAULT_EMAIL : manager.Email;
+            var result = managerRepository.AddManager(manager);
+            return result switch
+            {
+                1 => (HttpStatusCode.OK, true),
+                -1 => (HttpStatusCode.BadRequest, false),
+                _ => (HttpStatusCode.InternalServerError, false),
+            };
+
         }
     }
 }

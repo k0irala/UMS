@@ -15,7 +15,7 @@ using UMS.Encryption;
 
 namespace UMS.Services
 {
-    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository, IEmployeeService empService,AesEncryption aesEncryption)
+    public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository, EmployeeService empService,AesEncryption aesEncryption)
     {
         private readonly byte[] _key = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionKey"] ?? string.Empty);
         private readonly byte[] _iv = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionIV"] ?? string.Empty);
@@ -41,7 +41,7 @@ namespace UMS.Services
                 .FirstOrDefault(u => u.UserName == request.UserName);
 
             if (employee == null) return (false, null);
-            var decryptedPass = aesEncryption.DecryptString(employee.Password,_key,_iv);
+            var decryptedPass = aesEncryption.DecryptString(employee.Password);
 
             if (decryptedPass == request.Password)
                 return (true, null);

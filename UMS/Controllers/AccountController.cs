@@ -14,7 +14,7 @@ namespace UMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController(IAccountRepository accRepository, JWTService jWtService,IValidator<AddEmployee> empValidator,IManagerService managerService) : ControllerBase
+    public class AccountController(IAccountRepository accRepository, JWTService jWtService,IValidator<AddEmployee> empValidator,ManagerService managerService) : ControllerBase
     {
         [HttpPost("EmployeeRegister")]
         [AllowAnonymous]

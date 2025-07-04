@@ -1,12 +1,16 @@
+using System.Net;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using UMS.Data;
+using UMS.Encryption;
+using UMS.Models.Employee;
 using UMS.Models.Entities;
 using UMS.Repositories.EmployeeManagement;
 
 namespace UMS.Services
 {
 
-    public class EmployeeService(IEmployeeRepository employeeRepository,ApplicationDbContext _dbContext) : IEmployeeService
+    public class EmployeeService(IEmployeeRepository employeeRepository,AesEncryption encryption,ManagerService managerService,ApplicationDbContext _dbContext,IValidator<AddEmployee> empValidator,IValidator<UpdateEmployee> updateEmpValidator )
     {
 
         public Employee? GetEmployeeByEmail(string email)
@@ -17,13 +21,24 @@ namespace UMS.Services
             }
             return _dbContext.Employees.FirstOrDefault(e => e.Email == email);
         }
-        public async Task<Employee> GetEmployeeByIdAsync(int id)
+
+        public (HttpStatusCode, bool) CreateEmployee(AddEmployee employee)
         {
-            if (id == 0)
+            var validationResult = empValidator.Validate(employee);
+            if (!validationResult.IsValid) return (HttpStatusCode.BadRequest, validationResult.IsValid);
+            var manager = managerService.GetManagerByDesignation(employee.DesignationId);
+            var result= employeeRepository.AddEmployee(employee,GenerateRandomEmpCode(),"Active",manager.Id);
+            return result switch
             {
-                throw new ArgumentException("Invalid employee ID.");
-            }
-            return await _dbContext.Employees.FindAsync(id);
+                1 => (HttpStatusCode.Created,true),
+                -1 => (HttpStatusCode.BadRequest,false),
+                _ => (HttpStatusCode.InternalServerError,false),
+            };
+        }
+        public AddEmployee GetById(int id)
+        {
+            var emp = employeeRepository.GetEmployeeById(id);
+            return emp;
         }
 
         public async Task<Employee> EmployeeData(string userName)
@@ -38,21 +53,31 @@ namespace UMS.Services
         }
 
 
-        public async Task<bool> UpdateEmployeeAsync(Employee employee)
+        public (HttpStatusCode,bool) UpdateEmployee(int id,UpdateEmployee employee)
         {
-            _dbContext.Employees.Update(employee);
-            return await _dbContext.SaveChangesAsync() > 0;
+            employee.Password = encryption.EncryptString(employee.Password); 
+            var validationResult = updateEmpValidator.Validate(employee);
+            if (!validationResult.IsValid) return (HttpStatusCode.BadRequest, validationResult.IsValid);
+            var manager = managerService.GetManagerByDesignation(employee.DesignationId);
+            var result = employeeRepository.UpdateEmployee(id,manager.Id,status:"Active",employee);
+            return result switch
+            {
+                1 => (HttpStatusCode.OK, true),
+                -1 => (HttpStatusCode.BadRequest, false),
+                0 => (HttpStatusCode.Conflict,false),
+                _ => (HttpStatusCode.InternalServerError, false),
+            };
         }
 
-        public async Task<bool> DeleteEmployeeAsync(int id)
+        public (HttpStatusCode,bool) DeleteEmployee(int id)
         {
-            var employee = await GetEmployeeByIdAsync(id);
-            if (employee != null)
+            var result =  employeeRepository.DeleteEmployee(id);
+            return result switch
             {
-                _dbContext.Employees.Remove(employee);
-                return await _dbContext.SaveChangesAsync() > 0;
-            }
-            return false;
+                1 => (HttpStatusCode.OK, true),
+                -1 => (HttpStatusCode.BadRequest, false),
+                _ => (HttpStatusCode.InternalServerError, false),
+            };
         }
 
         public async Task<bool> IsEmailUniqueAsync(string email)
@@ -74,6 +99,10 @@ namespace UMS.Services
             {
                 return "Employee with the specified OTP does not exist.";
             }
+        }
+        public string GenerateRandomEmpCode()
+        {
+            return "EMP" + new Random().Next(1000, 9999);
         }
     }   
 }

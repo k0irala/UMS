@@ -8,13 +8,16 @@ using UMS.Encryption;
 using UMS.Models;
 using UMS.Models.Designation;
 using UMS.Models.Employee;
+using UMS.Models.Manager;
 using UMS.Repositories;
 using UMS.Repositories.AttendanceRepo;
 using UMS.Repositories.EmployeeManagement;
+using UMS.Repositories.ManagerManagement;
 using UMS.Services;
 using UMS.Validations.Account.Employee;
 using UMS.Validations.Account.Manager;
 using UMS.Validations.Deisgnation;
+using UMS.Validations.ManagerValidator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,12 +35,16 @@ builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 builder.Services.AddScoped<DesignationRepository>();
 builder.Services.AddScoped<IValidator<AddEmployee>,EmployeeRegisterValidation>();
 builder.Services.AddScoped<IEmployeeAttendanceRepository, EmployeeAttendanceRepository>();
-builder.Services.AddScoped<IManagerService, ManagerService>();
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<ManagerService>();
+builder.Services.AddScoped<IValidator<AddEmployee>, CreateEmployeeValidation>();
+builder.Services.AddScoped<IValidator<UpdateEmployee>, UpdateEmployeeValidator>();
+builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IValidator<AddDesignationModel>, AddDesignationValidator>();
 builder.Services.AddScoped<IValidator<int>, DeleteDesignationValidator>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<AesEncryption>();
+builder.Services.AddScoped<IValidator<AddManager>, CreateManagerValidator>();
 builder.Services.AddScoped<IValidator<ManagerRegisterModel>, ManagerRegisterValidator>();
 builder.Services.AddSwaggerGen(options =>
 {
