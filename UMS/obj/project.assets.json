@@ -685,10 +685,10 @@
           "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
         }
       },
-      "Microsoft.Extensions.Caching.Abstractions/9.0.6": {
+      "Microsoft.Extensions.Caching.Abstractions/10.0.0-preview.5.25277.114": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "9.0.6"
+          "Microsoft.Extensions.Primitives": "10.0.0-preview.5.25277.114"
         },
         "compile": {
           "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
@@ -725,6 +725,25 @@
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Caching.StackExchangeRedis/10.0.0-preview.5.25277.114": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "10.0.0-preview.5.25277.114",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0-preview.5.25277.114",
+          "Microsoft.Extensions.Options": "10.0.0-preview.5.25277.114",
+          "StackExchange.Redis": "2.7.27"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/9.0.6": {
@@ -765,7 +784,7 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.6": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.0-preview.5.25277.114": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
@@ -822,11 +841,11 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/9.0.6": {
+      "Microsoft.Extensions.Logging.Abstractions/10.0.0-preview.5.25277.114": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.6",
-          "System.Diagnostics.DiagnosticSource": "9.0.6"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0-preview.5.25277.114",
+          "System.Diagnostics.DiagnosticSource": "10.0.0-preview.5.25277.114"
         },
         "compile": {
           "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
@@ -842,11 +861,11 @@
           "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
         }
       },
-      "Microsoft.Extensions.Options/9.0.6": {
+      "Microsoft.Extensions.Options/10.0.0-preview.5.25277.114": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.6",
-          "Microsoft.Extensions.Primitives": "9.0.6"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.0-preview.5.25277.114",
+          "Microsoft.Extensions.Primitives": "10.0.0-preview.5.25277.114"
         },
         "compile": {
           "lib/net8.0/Microsoft.Extensions.Options.dll": {
@@ -862,7 +881,7 @@
           "buildTransitive/net8.0/Microsoft.Extensions.Options.targets": {}
         }
       },
-      "Microsoft.Extensions.Primitives/9.0.6": {
+      "Microsoft.Extensions.Primitives/10.0.0-preview.5.25277.114": {
         "type": "package",
         "compile": {
           "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
@@ -1116,19 +1135,19 @@
           }
         }
       },
-      "StackExchange.Redis/2.8.41": {
+      "StackExchange.Redis/2.7.27": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
           "Pipelines.Sockets.Unofficial": "2.2.8"
         },
         "compile": {
-          "lib/net8.0/StackExchange.Redis.dll": {
+          "lib/net6.0/StackExchange.Redis.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/StackExchange.Redis.dll": {
+          "lib/net6.0/StackExchange.Redis.dll": {
             "related": ".xml"
           }
         }
@@ -1375,7 +1394,7 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-      "System.Diagnostics.DiagnosticSource/9.0.6": {
+      "System.Diagnostics.DiagnosticSource/10.0.0-preview.5.25277.114": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
@@ -3398,10 +3417,10 @@
         "tools/netcoreapp2.1/System.Diagnostics.DiagnosticSource.dll"
       ]
     },
-    "Microsoft.Extensions.Caching.Abstractions/9.0.6": {
-      "sha512": "bL/xQsVNrdVkzjP5yjX4ndkQ03H3+Bk3qPpl+AMCEJR2RkfgAYmoQ/xXffPV7is64+QHShnhA12YAaFmNbfM+A==",
+    "Microsoft.Extensions.Caching.Abstractions/10.0.0-preview.5.25277.114": {
+      "sha512": "666AMEONZaeT+/9WkkZXp5RASUObiAStmnftn2frTBG0VB8PXVbmSkwWYulNeoAJeihqf7H/nwLSirH9kofA2Q==",
       "type": "package",
-      "path": "microsoft.extensions.caching.abstractions/9.0.6",
+      "path": "microsoft.extensions.caching.abstractions/10.0.0-preview.5.25277.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3413,6 +3432,8 @@
         "buildTransitive/net462/_._",
         "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Caching.Abstractions.targets",
+        "lib/net10.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.Caching.Abstractions.xml",
         "lib/net462/Microsoft.Extensions.Caching.Abstractions.dll",
         "lib/net462/Microsoft.Extensions.Caching.Abstractions.xml",
         "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll",
@@ -3421,7 +3442,7 @@
         "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.xml",
-        "microsoft.extensions.caching.abstractions.9.0.6.nupkg.sha512",
+        "microsoft.extensions.caching.abstractions.10.0.0-preview.5.25277.114.nupkg.sha512",
         "microsoft.extensions.caching.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3452,6 +3473,26 @@
         "microsoft.extensions.caching.memory.9.0.6.nupkg.sha512",
         "microsoft.extensions.caching.memory.nuspec",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Caching.StackExchangeRedis/10.0.0-preview.5.25277.114": {
+      "sha512": "WMmJ2VwW9FGExwZgRNCY4t+3RorWQa02f4Ed1SlOYN/OgMOdfdYx99LqN/bw+urC3i1+Rbe873gFLuGwhwKaFg==",
+      "type": "package",
+      "path": "microsoft.extensions.caching.stackexchangeredis/10.0.0-preview.5.25277.114",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
+        "lib/net10.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
+        "lib/net462/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
+        "lib/net462/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
+        "microsoft.extensions.caching.stackexchangeredis.10.0.0-preview.5.25277.114.nupkg.sha512",
+        "microsoft.extensions.caching.stackexchangeredis.nuspec"
       ]
     },
     "Microsoft.Extensions.Configuration.Abstractions/9.0.6": {
@@ -3512,10 +3553,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.6": {
-      "sha512": "0Zn6nR/6g+90MxskZyOOMPQvnPnrrGu6bytPwkV+azDcTtCSuQ1+GJUrg8Klmnrjk1i6zMpw2lXijl+tw7Q3kA==",
+    "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.0-preview.5.25277.114": {
+      "sha512": "t0CbrAKI3cL+s2wV6UMf1Wg2wPPZ/ABO2Zi+HALJrd4vSQtskzz4rU+jr0ZKfVSnpj1QuYigj2pIWtQAbqPuLQ==",
       "type": "package",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.6",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.0-preview.5.25277.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3527,6 +3568,8 @@
         "buildTransitive/net462/_._",
         "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
@@ -3537,7 +3580,7 @@
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "microsoft.extensions.dependencyinjection.abstractions.9.0.6.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.10.0.0-preview.5.25277.114.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3600,10 +3643,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Logging.Abstractions/9.0.6": {
-      "sha512": "LFnyBNK7WtFmKdnHu3v0HOYQ8BcjYuy0jdC9pgCJ/rbLKoJEG9/dBzSKMEeeWDbDeoWS0TIxOC8a9CM5ufca3A==",
+    "Microsoft.Extensions.Logging.Abstractions/10.0.0-preview.5.25277.114": {
+      "sha512": "NcC1ZCcg4DPiej9GBqGEcC3mVjRl1QLlHJGzOHUEZkywkzMoHy5xjiIObpZNcy7XKbl1DYzyuqudDz04QdYIDw==",
       "type": "package",
-      "path": "microsoft.extensions.logging.abstractions/9.0.6",
+      "path": "microsoft.extensions.logging.abstractions/10.0.0-preview.5.25277.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3658,6 +3701,8 @@
         "buildTransitive/net8.0/Microsoft.Extensions.Logging.Abstractions.targets",
         "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Logging.Abstractions.targets",
         "buildTransitive/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.targets",
+        "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.xml",
         "lib/net462/Microsoft.Extensions.Logging.Abstractions.dll",
         "lib/net462/Microsoft.Extensions.Logging.Abstractions.xml",
         "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll",
@@ -3666,15 +3711,15 @@
         "lib/net9.0/Microsoft.Extensions.Logging.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
-        "microsoft.extensions.logging.abstractions.9.0.6.nupkg.sha512",
+        "microsoft.extensions.logging.abstractions.10.0.0-preview.5.25277.114.nupkg.sha512",
         "microsoft.extensions.logging.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Options/9.0.6": {
-      "sha512": "wUPhNM1zsI58Dy10xRdF2+pnsisiUuETg5ZBncyAEEUm/CQ9Q1vmivyUWH8RDbAlqyixf2dJNQ2XZb7HsKUEQw==",
+    "Microsoft.Extensions.Options/10.0.0-preview.5.25277.114": {
+      "sha512": "IzAXVHABOW+ZzRIcfFdatr2yFUg3DgafeTOQosub704cUPDlOSW3iI+yuRLxbqE2Jxx0DMGUDLOP4HoeFXBA0g==",
       "type": "package",
-      "path": "microsoft.extensions.options/9.0.6",
+      "path": "microsoft.extensions.options/10.0.0-preview.5.25277.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3701,6 +3746,8 @@
         "buildTransitive/net8.0/Microsoft.Extensions.Options.targets",
         "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Options.targets",
         "buildTransitive/netstandard2.0/Microsoft.Extensions.Options.targets",
+        "lib/net10.0/Microsoft.Extensions.Options.dll",
+        "lib/net10.0/Microsoft.Extensions.Options.xml",
         "lib/net462/Microsoft.Extensions.Options.dll",
         "lib/net462/Microsoft.Extensions.Options.xml",
         "lib/net8.0/Microsoft.Extensions.Options.dll",
@@ -3711,15 +3758,15 @@
         "lib/netstandard2.0/Microsoft.Extensions.Options.xml",
         "lib/netstandard2.1/Microsoft.Extensions.Options.dll",
         "lib/netstandard2.1/Microsoft.Extensions.Options.xml",
-        "microsoft.extensions.options.9.0.6.nupkg.sha512",
+        "microsoft.extensions.options.10.0.0-preview.5.25277.114.nupkg.sha512",
         "microsoft.extensions.options.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Primitives/9.0.6": {
-      "sha512": "BHniU24QV67qp1pJknqYSofAPYGmijGI8D+ci9yfw33iuFdyOeB9lWTg78ThyYLyQwZw3s0vZ36VMb0MqbUuLw==",
+    "Microsoft.Extensions.Primitives/10.0.0-preview.5.25277.114": {
+      "sha512": "CAUfd41c6W6P1B90rJSf5dyJBJSwSIbRexJ2W+h0MASF/4dDKlUn33gPeS6DYeOsL4d/RebiIdBoVdOTBdMCcQ==",
       "type": "package",
-      "path": "microsoft.extensions.primitives/9.0.6",
+      "path": "microsoft.extensions.primitives/10.0.0-preview.5.25277.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3731,6 +3778,8 @@
         "buildTransitive/net462/_._",
         "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Primitives.targets",
+        "lib/net10.0/Microsoft.Extensions.Primitives.dll",
+        "lib/net10.0/Microsoft.Extensions.Primitives.xml",
         "lib/net462/Microsoft.Extensions.Primitives.dll",
         "lib/net462/Microsoft.Extensions.Primitives.xml",
         "lib/net8.0/Microsoft.Extensions.Primitives.dll",
@@ -3739,7 +3788,7 @@
         "lib/net9.0/Microsoft.Extensions.Primitives.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Primitives.xml",
-        "microsoft.extensions.primitives.9.0.6.nupkg.sha512",
+        "microsoft.extensions.primitives.10.0.0-preview.5.25277.114.nupkg.sha512",
         "microsoft.extensions.primitives.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -4086,27 +4135,24 @@
         "pipelines.sockets.unofficial.nuspec"
       ]
     },
-    "StackExchange.Redis/2.8.41": {
-      "sha512": "EgtQzlucry9V2Gces1K19Xi8Sz/8DfoZlGQEmL/hSM/SXO/ucDS5RPmLzcmT489ZNGFbj9CGhlpscPLOXtYWwA==",
+    "StackExchange.Redis/2.7.27": {
+      "sha512": "Uqc2OQHglqj9/FfGQ6RkKFkZfHySfZlfmbCl+hc+u2I/IqunfelQ7QJi7ZhvAJxUtu80pildVX6NPLdDaUffOw==",
       "type": "package",
-      "path": "stackexchange.redis/2.8.41",
+      "path": "stackexchange.redis/2.7.27",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
         "lib/net461/StackExchange.Redis.dll",
         "lib/net461/StackExchange.Redis.xml",
         "lib/net472/StackExchange.Redis.dll",
         "lib/net472/StackExchange.Redis.xml",
         "lib/net6.0/StackExchange.Redis.dll",
         "lib/net6.0/StackExchange.Redis.xml",
-        "lib/net8.0/StackExchange.Redis.dll",
-        "lib/net8.0/StackExchange.Redis.xml",
         "lib/netcoreapp3.1/StackExchange.Redis.dll",
         "lib/netcoreapp3.1/StackExchange.Redis.xml",
         "lib/netstandard2.0/StackExchange.Redis.dll",
         "lib/netstandard2.0/StackExchange.Redis.xml",
-        "stackexchange.redis.2.8.41.nupkg.sha512",
+        "stackexchange.redis.2.7.27.nupkg.sha512",
         "stackexchange.redis.nuspec"
       ]
     },
@@ -4463,10 +4509,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Diagnostics.DiagnosticSource/9.0.6": {
-      "sha512": "nikkwAKqpwWUvV5J8S9fnOPYg8k75Lf9fAI4bd6pyhyqNma0Py9kt+zcqXbe4TjJ4sTPcdYpPg81shYTrXnUZQ==",
+    "System.Diagnostics.DiagnosticSource/10.0.0-preview.5.25277.114": {
+      "sha512": "bAqwR7f/neMX5iV5sjMcZBUruBF2bvXPmF07xtxZjgLJtXBxLBL91TGhKlrbdiQuPjxwRi5D1HmUwZgN3EIeUA==",
       "type": "package",
-      "path": "system.diagnostics.diagnosticsource/9.0.6",
+      "path": "system.diagnostics.diagnosticsource/10.0.0-preview.5.25277.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4477,6 +4523,8 @@
         "buildTransitive/net462/_._",
         "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Diagnostics.DiagnosticSource.targets",
+        "lib/net10.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net10.0/System.Diagnostics.DiagnosticSource.xml",
         "lib/net462/System.Diagnostics.DiagnosticSource.dll",
         "lib/net462/System.Diagnostics.DiagnosticSource.xml",
         "lib/net8.0/System.Diagnostics.DiagnosticSource.dll",
@@ -4485,7 +4533,7 @@
         "lib/net9.0/System.Diagnostics.DiagnosticSource.xml",
         "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.dll",
         "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.xml",
-        "system.diagnostics.diagnosticsource.9.0.6.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.10.0.0-preview.5.25277.114.nupkg.sha512",
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5295,9 +5343,9 @@
       "Microsoft.EntityFrameworkCore.Design >= 9.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.6",
+      "Microsoft.Extensions.Caching.StackExchangeRedis >= 10.0.0-preview.5.25277.114",
       "MimeKit >= 4.12.0",
       "Newtonsoft.Json >= 13.0.3",
-      "StackExchange.Redis >= 2.8.41",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -5391,6 +5439,10 @@
             "target": "Package",
             "version": "[9.0.6, )"
           },
+          "Microsoft.Extensions.Caching.StackExchangeRedis": {
+            "target": "Package",
+            "version": "[10.0.0-preview.5.25277.114, )"
+          },
           "MimeKit": {
             "target": "Package",
             "version": "[4.12.0, )"
@@ -5398,10 +5450,6 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
-          },
-          "StackExchange.Redis": {
-            "target": "Package",
-            "version": "[2.8.41, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
