@@ -5,12 +5,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using UMS.Data;
 using UMS.Encryption;
+using UMS.Middlewares;
 using UMS.Models;
 using UMS.Models.Designation;
 using UMS.Models.Employee;
 using UMS.Models.Manager;
 using UMS.Repositories;
 using UMS.Repositories.AttendanceRepo;
+using UMS.Repositories.BlackListToken;
 using UMS.Repositories.EmployeeManagement;
 using UMS.Repositories.ManagerManagement;
 using UMS.Services;
@@ -37,6 +39,8 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IDapperRepository, DapperRepository>();
 builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
+builder.Services.AddScoped<BlackListTokenService>();
+builder.Services.AddScoped<IBlackListTokenRepository,BlackListTokenRepository>();
 builder.Services.AddScoped<DesignationRepository>();
 builder.Services.AddScoped<IValidator<AddEmployee>,EmployeeRegisterValidation>();
 builder.Services.AddScoped<IEmployeeAttendanceRepository, EmployeeAttendanceRepository>();
@@ -155,6 +159,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<BlackListTokenMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseSession();

@@ -17,7 +17,7 @@ namespace UMS.Repositories
         public T QuerySingleOrDefault<T>(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure)
         {
             var data = DbConfig.EstablishConnection().QuerySingleOrDefault<T>(query, parameters, commandType: type);
-            return data == null ? throw new Exception("No data found for the given query.") : data;
+            return data;
         }
         public void Execute(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure)
         {

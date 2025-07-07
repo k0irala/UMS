@@ -45,5 +45,11 @@
         public const string GET_EMP_ATTENDANCE = "usp_GetEmployeeAttendance";
         public const string ADD_EMP_ATTENDANCE = "usp_AddEmployeeAttendance";
         #endregion
+
+        #region  Tokens
+
+        public const string SAVE_BLACK_LIST_TOKEN = "usp_SaveBlackListToken";
+        public const string GET_BLACK_LIST_TOKEN = "usp_GetBlackListToken";
+        #endregion
     }
 }

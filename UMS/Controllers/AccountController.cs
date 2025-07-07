@@ -14,7 +14,7 @@ namespace UMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController(IAccountRepository accRepository, JWTService jWtService,IValidator<AddEmployee> empValidator,ManagerService managerService) : ControllerBase
+    public class AccountController(IAccountRepository accRepository, JWTService jWtService,IValidator<AddEmployee> empValidator,ManagerService managerService,BlackListTokenService blackList) : ControllerBase
     {
         [HttpPost("EmployeeRegister")]
         [AllowAnonymous]
@@ -130,11 +130,18 @@ namespace UMS.Controllers
             return BadRequest(manager);
         }
 
-        [HttpPost]
+        [HttpPost("Logout")]
+        [Authorize]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return Ok("Logged Out Successfully");
+            var authHeader = Request.Headers.Authorization.ToString();
+            if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+                return Conflict("Could not Log Out!!");
+            var token = authHeader["Bearer ".Length..].Trim();
+            Console.WriteLine(token);
+            var result = blackList.SaveBlackListToken(new BlackListToken(){Token=token,ExpiresAt = DateTime.Now.AddHours(3)});
+            return Ok(result + "Logged Out!");
         }
     }
 }
