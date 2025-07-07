@@ -11,16 +11,14 @@ using UMS.Repositories;
 using Dapper;
 using Azure.Core;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using UMS.Encryption;
 
 namespace UMS.Services
 {
     public class JWTService(ApplicationDbContext dbContext, IConfiguration configuration, IDapperRepository repository, EmployeeService empService,AesEncryption aesEncryption)
     {
-        private readonly byte[] _key = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionKey"] ?? string.Empty);
-        private readonly byte[] _iv = Encoding.UTF8.GetBytes(configuration["AESKEYS:AESEncryptionIV"] ?? string.Empty);
-        // 1. Validate credentials only (NO token generation)
-        public (bool IsValid, LoginResponseModel? Token) ValidateLoginCredentials(LoginRequestModel request)
+        public async Task<(bool IsValid, LoginResponseModel? Token)> ValidateLoginCredentials(LoginRequestModel request)
         {
             if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
                 return (false, null);
@@ -37,21 +35,19 @@ namespace UMS.Services
 
                 return (true, token);
             }
-            var employee = dbContext.Employees
-                .FirstOrDefault(u => u.UserName == request.UserName);
-
-            if (employee == null) return (false, null);
-            var decryptedPass = aesEncryption.DecryptString(employee.Password);
-
+            var userQuery = dbContext.Employees
+                .Where(e => e.UserName == request.UserName)
+                .Select(e => new { e.Id, e.FullName, e.Email, e.UserName, e.Password, Role = UMS.Enums.Roles.Employee })
+                .Union(
+                    dbContext.Managers
+                        .Where(m => m.UserName == request.UserName)
+                        .Select(m => new { m.Id, m.FullName, m.Email, m.UserName, m.Password, Role = UMS.Enums.Roles.Manager })
+                );
+            var user = await userQuery.FirstOrDefaultAsync();
+            if (user == null) return (false, null);
+            var decryptedPass = aesEncryption.DecryptString(user.Password);
             if (decryptedPass == request.Password)
-                return (true, null);
-
-            var manager = dbContext.Managers
-                .FirstOrDefault(u => u.UserName == request.UserName && u.Password == decryptedPass);
-
-            if (manager != null)
-                return (true, null);
-
+                return (true,null);
             return (false, null);
         }
 
@@ -115,8 +111,7 @@ namespace UMS.Services
 
             return GenerateAccessToken(id, fullName, existingOtp.Email, userName, role);
         }
-
-
+        
         public string UserRole(LoginResponseModel response)
         {
             var handler = new JwtSecurityTokenHandler();

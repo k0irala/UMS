@@ -50,7 +50,7 @@ namespace UMS.Controllers
         {
             HttpContext.Session.SetString("UserName", model.UserName);
             const bool isForgotPassword = false;
-            var (isValidUser, token) = accRepository.Login(model);
+            var (isValidUser, token) = await accRepository.Login(model);
             if (!isValidUser)
             {
                 return Unauthorized("Invalid username or password.");
@@ -99,7 +99,7 @@ namespace UMS.Controllers
         [Authorize]
         public IActionResult NewPassword(NewPasswordModel model)
         {
-            if (string.IsNullOrEmpty(model.NewPassword) && model.NewPassword != model.ConfirmPassword)
+            if (string.IsNullOrEmpty(model.NewPassword) || model.NewPassword != model.ConfirmPassword)
             {
                 return BadRequest("New password and confirm password do not match.");
             }
@@ -129,6 +129,12 @@ namespace UMS.Controllers
                 return Ok("The email of the manager has been changed!!");
             return BadRequest(manager);
         }
-        
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Ok("Logged Out Successfully");
+        }
     }
 }

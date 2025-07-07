@@ -1,7 +1,6 @@
 using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using UMS.Data;
 using UMS.Models.Entities;
@@ -43,7 +42,9 @@ namespace UMS.Services
         public (HttpStatusCode,bool) UpdateManager(int id,AddManager manager)
         {
             // Implementation to update a manager
+            cache.Remove($"UMS_Manager_{id}");
             var result = managerRepository.UpdateManager(id, manager);
+            if (result == 1) cache.Remove($"UMS_Manager_{id}");
             return result switch
             {
                 1 => (HttpStatusCode.OK, true),
@@ -52,7 +53,8 @@ namespace UMS.Services
             };
         }
         public (HttpStatusCode,bool) DeleteManager(int id)
-        {
+        { 
+            cache.Remove($"UMS_Manager_{id}");
            var result = managerRepository.DeleteManager(id);
            return result switch
            {

@@ -21,23 +21,18 @@ namespace UMS.Repositories
         ManagerService managerService,
         AesEncryption aesEncryption) : IAccountRepository
     {
-        public (bool IsValid, LoginResponseModel? token) Login(LoginRequestModel request)
+        public async Task<(bool IsValid, LoginResponseModel? token)> Login(LoginRequestModel request)
         {
             ArgumentNullException.ThrowIfNull(request);
 
             if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
                 throw new ArgumentException("Username and Password cannot be null or empty.");
 
-            var (isValid, token) = jwtService.ValidateLoginCredentials(request);
+            var (isValid, token) = await  jwtService.ValidateLoginCredentials(request);
             if (!isValid)
                 throw new UnauthorizedAccessException("Invalid username or password.");
 
             return (isValid, token);
-        }
-
-        public bool Logout(string token)
-        {
-            throw new NotImplementedException();
         }
 
         public HttpStatusCode ManagerRegister(ManagerRegisterModel request)
@@ -47,6 +42,7 @@ namespace UMS.Repositories
                 return HttpStatusCode.BadRequest;
 
             var encryptedPass = aesEncryption.EncryptString(request.Password);
+            Console.WriteLine(encryptedPass);
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
             parameters.Add("@UserName", request.UserName);

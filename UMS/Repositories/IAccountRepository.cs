@@ -6,9 +6,8 @@ namespace UMS.Repositories
 {
     public interface IAccountRepository
     {
-        (bool IsValid,LoginResponseModel? token) Login(LoginRequestModel requestModel);
+        Task<(bool IsValid,LoginResponseModel? token)> Login(LoginRequestModel requestModel);
         LoginResponseModel RefreshToken(string token, string refreshToken);
-        bool Logout(string token);
         HttpStatusCode UserRegister(AddEmployee requestModel);
         HttpStatusCode ManagerRegister(ManagerRegisterModel requestModel);
         public string GenerateNewOtp();
