@@ -44,6 +44,10 @@
         public const string GET_EMP_ATTENDANCE_BY_ID = "usp_GetAllEmployeeAttendanceByID";
         public const string GET_EMP_ATTENDANCE = "usp_GetEmployeeAttendance";
         public const string ADD_EMP_ATTENDANCE = "usp_AddEmployeeAttendance";
+        public const string GET_ALL_MANAGER_ATTENDANCE = "usp_GetAllManagerAttendance";
+        public const string GET_MANAGER_ATTENDANCE_BY_ID = "usp_GetManagerAttendanceByID";
+        public const string GET_MANAGER_ATTENDANCE = "usp_GetManagerAttendance";
+        public const string ADD_MANAGER_ATTENDANCE = "usp_AddManagerAttendance";
         #endregion
 
         #region  Tokens

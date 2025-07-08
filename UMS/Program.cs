@@ -1,8 +1,11 @@
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using UMS;
 using UMS.Data;
 using UMS.Encryption;
 using UMS.Middlewares;
@@ -16,6 +19,7 @@ using UMS.Repositories.BlackListToken;
 using UMS.Repositories.EmployeeManagement;
 using UMS.Repositories.ManagerManagement;
 using UMS.Services;
+using UMS.Services.Attendance;
 using UMS.Validations.Account.Employee;
 using UMS.Validations.Account.Manager;
 using UMS.Validations.Deisgnation;
@@ -29,12 +33,27 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
     options.InstanceName = "UMS_"; // Optional prefix for cache keys
 });
-
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+builder.Services.AddApiVersioning(options =>
+    {
+        options.DefaultApiVersion = new ApiVersion(1); 
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.ReportApiVersions = true;
+        options.ApiVersionReader = new UrlSegmentApiVersionReader();
+    })
+    .AddApiExplorer(options =>
+    {
+        options.GroupNameFormat = "'v'V"; 
+        options.SubstituteApiVersionInUrl = true;
+    })
+    .AddMvc();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IManagerAttendanceRepository,ManagerAttendanceRepository>();
+builder.Services.AddScoped<ManagerAttendanceService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IDapperRepository, DapperRepository>();
@@ -108,7 +127,6 @@ builder.Services.AddAuthentication(x =>
 );
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "Your API", Version = "v1" });
 
     c.AddSecurityDefinition("X-Signature", new OpenApiSecurityScheme
     {
@@ -156,7 +174,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        var descriptions = app.DescribeApiVersions();
+
+        foreach (var description in descriptions)
+        {
+            var url = $"/swagger/{description.GroupName}/swagger.json";
+            var name = description.GroupName.ToUpperInvariant();
+            options.SwaggerEndpoint(url,name);
+        }
+    });
 }
 
 app.UseMiddleware<BlackListTokenMiddleware>();

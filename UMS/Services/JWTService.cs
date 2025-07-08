@@ -161,6 +161,7 @@ namespace UMS.Services
             {
                 UserName = userName,
                 Email = email,
+                UserId = id,
                 AccessToken = accessToken,
                 Expiration = expiration,
                 RefreshTokenExpiration = DateTime.Now.AddDays(5),
@@ -249,6 +250,36 @@ namespace UMS.Services
                 throw new Exception("Error resetting password.");
             }
             return "Password reset successfully.";
+        }
+
+        public async Task<(RefreshTokenEmployee, RefreshTokenManager)> GetRefreshToken(string refreshToken)
+        {
+           var  empToken = await dbContext.RefreshTokenEmployees
+               .FirstOrDefaultAsync(f=>f.RefreshUserToken == refreshToken);
+
+           var managerToken = await dbContext.RefreshTokenManagers
+               .FirstOrDefaultAsync(f=>f.RefreshUserToken == refreshToken);
+
+           return (empToken ?? new RefreshTokenEmployee(), managerToken ?? new RefreshTokenManager());
+
+        }
+
+        public void RevokeRefreshToken(string refreshToken)
+        {
+            var empToken = dbContext.RefreshTokenEmployees.FirstOrDefault(t => t.RefreshUserToken == refreshToken);
+            if (empToken != null)
+            {
+                dbContext.RefreshTokenEmployees.Remove(empToken);
+                dbContext.SaveChanges();
+                return;
+            }
+
+            var managerToken = dbContext.RefreshTokenManagers.FirstOrDefault(t => t.RefreshUserToken == refreshToken);
+            if (managerToken == null) return;
+            dbContext.RefreshTokenManagers.Remove(managerToken);
+            dbContext.SaveChanges();
+
+
         }
     }
 }

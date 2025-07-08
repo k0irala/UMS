@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UMS.Models.Employee;
 using UMS.Models.Manager;
@@ -7,7 +8,9 @@ using UMS.Services;
 namespace UMS.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion(1)]
+[ApiVersion(2)]
+[Route("api/v{apiversion:apiVersion}/[controller]")]
 [Authorize(Roles = "Admin")]
 public class ManagerController(ManagerService managerService) :ControllerBase
 {

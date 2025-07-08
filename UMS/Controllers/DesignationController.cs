@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Asp.Versioning;
 using UMS.Models.Designation;
 using UMS.Repositories;
 
 namespace UMS.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion(1)]
+    [ApiVersion(2)]
+    [Route("api/v{apiversion:apiVersion}/[controller]")]
     [ApiController]
     [Authorize(Roles ="Admin")]
     public class DesignationController(DesignationRepository designation) : ControllerBase
@@ -36,7 +39,8 @@ namespace UMS.Controllers
         }
 
         [HttpGet]
-        public List<AddDesignationModel> GetAll()
+        [MapToApiVersion(1)]
+        public List<AddDesignationModel> GetAllV1()
         {
             var result = designation.GetAllDesignations();
             return result != null ? [.. result] : [];

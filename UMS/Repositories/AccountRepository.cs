@@ -42,7 +42,6 @@ namespace UMS.Repositories
                 return HttpStatusCode.BadRequest;
 
             var encryptedPass = aesEncryption.EncryptString(request.Password);
-            Console.WriteLine(encryptedPass);
             var parameters = new DynamicParameters();
             parameters.Add("@FullName", request.FullName);
             parameters.Add("@UserName", request.UserName);
@@ -65,7 +64,7 @@ namespace UMS.Repositories
 
         public LoginResponseModel RefreshToken(string token, string refreshToken)
         {
-            throw new NotImplementedException();
+            return new LoginResponseModel();
         }
 
         public HttpStatusCode UserRegister(AddEmployee request)

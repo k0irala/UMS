@@ -1,17 +1,22 @@
 ﻿using System.Diagnostics;
 using System.Net;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UMS.Models;
 using UMS.Models.Entities;
+using UMS.Models.Manager;
 using UMS.Repositories.AttendanceRepo;
+using UMS.Services.Attendance;
 
 namespace UMS.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion(1)]
+[ApiVersion(2)]
+[Route("api/v{apiversion:apiVersion}/[controller]")]
 
-public class AttendanceController(IEmployeeAttendanceRepository employeeAttendanceRepository) : ControllerBase
+public class AttendanceController(IEmployeeAttendanceRepository employeeAttendanceRepository,ManagerAttendanceService managerAttendance) : ControllerBase
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Manager")]
@@ -54,4 +59,7 @@ public class AttendanceController(IEmployeeAttendanceRepository employeeAttendan
             _ => Conflict("The Attendance cannot be registered!")
         };
     }
+
+    
+    
 }

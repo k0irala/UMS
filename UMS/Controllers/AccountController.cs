@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
+using Asp.Versioning;
 using FluentValidation;
 using FluentValidation.Results;
 using UMS.Models;
@@ -12,7 +13,9 @@ using UMS.Services;
 
 namespace UMS.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion(1)]
+    [ApiVersion(2)]
+    [Route("api/v{apiversion:apiVersion}/[controller]")]
     [ApiController]
     public class AccountController(IAccountRepository accRepository, JWTService jWtService,IValidator<AddEmployee> empValidator,ManagerService managerService,BlackListTokenService blackList) : ControllerBase
     {
@@ -77,7 +80,7 @@ namespace UMS.Controllers
             if (response == new LoginResponseModel())
                 return Conflict("OTP has expired");
             HttpContext.Session.SetString("Email", response.Email);
-            HttpContext.Session.SetString("DesignationId",response.UserId);
+            HttpContext.Session.SetInt32("UserId",response.UserId);
             return Ok(response);
         }
         [HttpPost("ForgotPassword")]
@@ -139,7 +142,6 @@ namespace UMS.Controllers
             if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
                 return Conflict("Could not Log Out!!");
             var token = authHeader["Bearer ".Length..].Trim();
-            Console.WriteLine(token);
             var result = blackList.SaveBlackListToken(new BlackListToken(){Token=token,ExpiresAt = DateTime.Now.AddHours(3)});
             return Ok(result + "Logged Out!");
         }
