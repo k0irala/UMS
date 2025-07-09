@@ -5,11 +5,11 @@ namespace UMS.Repositories
 {
     public interface IDesignationRepository
     {
-        HttpStatusCode AddDesignation(AddDesignationModel designationModel);
-        HttpStatusCode UpdateDesignation(int id, UpdateDesignationModel designationModel);
-        HttpStatusCode DeleteDesignation(int id);
-        AddDesignationModel GetDesignationById(int id);
-        IEnumerable<AddDesignationModel> GetAllDesignations();
+        Task<HttpStatusCode> AddDesignation(AddDesignationModel designationModel);
+        Task<HttpStatusCode> UpdateDesignation(int id, UpdateDesignationModel designationModel);
+        Task<HttpStatusCode> DeleteDesignation(int id);
+        Task<AddDesignationModel> GetDesignationById(int id);
+        Task<IEnumerable<AddDesignationModel>> GetAllDesignations();
 
     }
 }

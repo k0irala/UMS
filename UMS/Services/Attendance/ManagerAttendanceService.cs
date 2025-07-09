@@ -6,27 +6,27 @@ namespace UMS.Services.Attendance;
 
 public class ManagerAttendanceService(IManagerAttendanceRepository repository)
 {
-    public List<ManagerAttendanceModel> GetManagerAttendanceByID(int id)
+    public async Task<List<ManagerAttendanceModel>> GetManagerAttendanceByID(int id)
     {
-        var result = repository.GetManagerAttendanceById(id);
+        var result = await repository.GetManagerAttendanceById(id);
         return result.ToList();
     }
 
-    public IDictionary<string, List<ManagerAttendanceModel>> GetAllManagerAttendance()
+    public async Task<IDictionary<string, List<ManagerAttendanceModel>>> GetAllManagerAttendance()
     {
-        var result = repository.GetAttendance();
+        var result = await repository.GetAttendance();
         return result;
     }
 
-    public List<ManagerAttendanceModel> GetMyAttendance(int id)
+    public async Task<List<ManagerAttendanceModel>> GetMyAttendance(int id)
     {
-        var result = repository.GetMyAttendance(id);
+        var result = await repository.GetMyAttendance(id);
         return result.ToList();
     }
 
-    public HttpStatusCode AddManagerAttendance(ManagerAttendanceModel model)
+    public async Task<HttpStatusCode> AddManagerAttendance(AddManagerAttendanceModel model)
     {
-        var result = repository.CreateManagerAttendance(model);
+        var result = await repository.CreateManagerAttendance(model);
         return result;
     }
 }

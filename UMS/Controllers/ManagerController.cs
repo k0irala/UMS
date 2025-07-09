@@ -15,22 +15,22 @@ namespace UMS.Controllers;
 public class ManagerController(ManagerService managerService) :ControllerBase
 {
     [HttpPost("getmanagers")]
-    public IActionResult GetAll(DataTableRequest request)
+    public async Task<IActionResult> GetAll(DataTableRequest request)
     {
-        var result = managerService.GetAllManagers(request);
+        var result = await managerService.GetAllManagers(request);
         return Ok(result);
     }
     [HttpGet("getmanagerbyid")]
-    public IActionResult GetManagerById(int id)
+    public async Task<IActionResult> GetManagerById(int id)
     {
-        var result = managerService.GetManagerById(id);
+        var result = await managerService.GetManagerById(id);
         return Ok(result);
     }
 
     [HttpPut]
-    public IActionResult Update(int id, AddManager manager)
+    public async Task<IActionResult> Update(int id, AddManager manager)
     {
-        var (statusCode,isSuccess) =  managerService.UpdateManager(id,manager);
+        var (statusCode,isSuccess) = await  managerService.UpdateManager(id,manager);
         if (isSuccess) return StatusCode((int)statusCode,new ResponseModel() { StatusCode = statusCode, 
             IsSuccess = isSuccess, SuccessMessage = "Manager Updated Successfully" });
         return StatusCode((int)statusCode,new ResponseModel()
@@ -42,9 +42,9 @@ public class ManagerController(ManagerService managerService) :ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var (statusCode,isSuccess) = managerService.DeleteManager(id);
+        var (statusCode,isSuccess) = await managerService.DeleteManager(id);
         if (isSuccess) return StatusCode((int)statusCode,new ResponseModel(){StatusCode = statusCode,
             IsSuccess = isSuccess,
             SuccessMessage = "Manager Deleted Successfully"});
@@ -56,9 +56,9 @@ public class ManagerController(ManagerService managerService) :ControllerBase
         });
     }
     [HttpPost]
-    public IActionResult Create(AddManager manager)
+    public async Task<IActionResult> Create(AddManager manager)
     {
-        var (statusCode, isSuccess) = managerService.CreateManager(manager);
+        var (statusCode, isSuccess) = await managerService.CreateManager(manager);
         if (isSuccess)
             return StatusCode((int)statusCode,
                 new ResponseModel()

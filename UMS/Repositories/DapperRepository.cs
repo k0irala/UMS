@@ -14,14 +14,14 @@ namespace UMS.Repositories
         {
             return DbConfig.EstablishConnection().Query<T>(query, parameters, commandType: commandType);
         }
-        public T QuerySingleOrDefault<T>(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure)
+        public async Task<T> QuerySingleOrDefaultAsync<T>(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure)
         {
-            var data = DbConfig.EstablishConnection().QuerySingleOrDefault<T>(query, parameters, commandType: type);
+            var data = await DbConfig.EstablishConnection().QuerySingleOrDefaultAsync<T>(query, parameters, commandType: type);
             return data;
         }
-        public void Execute(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure)
+        public async Task ExecuteAsync(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure)
         {
-            DbConfig.EstablishConnection().Execute(query, parameters, commandType: type);
+            await DbConfig.EstablishConnection().ExecuteAsync(query, parameters, commandType: type);
         }
     }
 }

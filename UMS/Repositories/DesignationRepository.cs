@@ -8,7 +8,7 @@ namespace UMS.Repositories
 {
     public class DesignationRepository(IDapperRepository repository, IValidator<AddDesignationModel> createValidator, IValidator<int> deleteValidator,IValidator<UpdateDesignationModel> updateValidator) : IDesignationRepository
     {
-        public HttpStatusCode AddDesignation(AddDesignationModel designation)
+        public async Task<HttpStatusCode> AddDesignation(AddDesignationModel designation)
         {
             ValidationResult validationResult = createValidator.Validate(designation);
             if (!validationResult.IsValid)
@@ -18,7 +18,7 @@ namespace UMS.Repositories
             parameters.Add("@Description", designation.Description);
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
-            repository.Execute(StoredProcedures.ADD_DESIGNATION, parameters);
+            await repository.ExecuteAsync(StoredProcedures.ADD_DESIGNATION, parameters);
             
             int result = parameters.Get<int>("@Result");
 
@@ -30,14 +30,14 @@ namespace UMS.Repositories
             
         }
 
-        public HttpStatusCode DeleteDesignation(int id)
+        public async Task<HttpStatusCode> DeleteDesignation(int id)
         {
             ValidationResult validationResult = deleteValidator.Validate(id);
             if (!validationResult.IsValid) return HttpStatusCode.Unauthorized;
             DynamicParameters parameters = new();
             parameters.Add("@id", id);
             parameters.Add("@Result",dbType: System.Data.DbType.Int32,direction: System.Data.ParameterDirection.Output);
-            repository.Execute(StoredProcedures.DELETE_DESIGNATION, parameters);
+            await repository.ExecuteAsync(StoredProcedures.DELETE_DESIGNATION, parameters);
 
             int result = parameters.Get<int>("@Result");
             if (result == 1) return HttpStatusCode.OK;
@@ -45,20 +45,20 @@ namespace UMS.Repositories
             else throw new Exception("An error occured while deleting the designation");
         }
 
-        public IEnumerable<AddDesignationModel> GetAllDesignations()
+        public async Task<IEnumerable<AddDesignationModel>> GetAllDesignations()
         {
             DynamicParameters parameters = new();
-            var designation = repository.Query<AddDesignationModel>(StoredProcedures.GET_ALL_DESIGNATIONS, parameters);
+            var designation = await repository.QueryAsync<AddDesignationModel>(StoredProcedures.GET_ALL_DESIGNATIONS, parameters);
             return designation ?? [];
         }
 
-        public AddDesignationModel GetDesignationById(int id)
+        public async Task<AddDesignationModel> GetDesignationById(int id)
         {
             DynamicParameters parameters = new();
             parameters.Add("@designationId", id);
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
-            var designation = repository.QuerySingleOrDefault<AddDesignationModel>(StoredProcedures.GET_DESIGNATION_BY_ID,parameters);
+            var designation = await repository.QuerySingleOrDefaultAsync<AddDesignationModel>(StoredProcedures.GET_DESIGNATION_BY_ID,parameters);
 
             
             return designation ?? new AddDesignationModel()
@@ -68,9 +68,9 @@ namespace UMS.Repositories
             } ;
         }
 
-        public HttpStatusCode UpdateDesignation(int id, UpdateDesignationModel designationModel)
+        public async Task<HttpStatusCode> UpdateDesignation(int id, UpdateDesignationModel designationModel)
         {
-            ValidationResult validation = updateValidator.Validate(designationModel);
+            var validation = updateValidator.Validate(designationModel);
             if(!validation.IsValid)
                 return HttpStatusCode.BadRequest;
             DynamicParameters parameters = new();
@@ -79,9 +79,9 @@ namespace UMS.Repositories
             parameters.Add("@Description", designationModel.Description);
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
-            repository.Execute(StoredProcedures.UPDATE_DESIGNATION, parameters);
+            await repository.ExecuteAsync(StoredProcedures.UPDATE_DESIGNATION, parameters);
 
-            int result = parameters.Get<int>("@Result");
+            var result = parameters.Get<int>("@Result");
 
             if (result == 1) return HttpStatusCode.OK;
             // Designation added successfully

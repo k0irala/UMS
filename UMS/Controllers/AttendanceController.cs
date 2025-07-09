@@ -20,37 +20,37 @@ public class AttendanceController(IEmployeeAttendanceRepository employeeAttendan
 {
     [HttpGet]
     [Authorize(Roles = "Admin,Manager")]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var result = employeeAttendanceRepository.GetAttendance();
+        var result =await employeeAttendanceRepository.GetAttendance();
         return Ok(result); 
     }
 
     [HttpGet("GetEmployeeAttendnace/{employeeId}")]
     [Authorize(Roles = "Admin,Manager")]
-    public IActionResult GetAllEmpAttendance(int employeeId)
+    public async Task<IActionResult> GetAllEmpAttendance(int employeeId)
     {
-        var result = employeeAttendanceRepository.GetEmployeeAttendance(employeeId);
+        var result = await employeeAttendanceRepository.GetEmployeeAttendance(employeeId);
         return Ok(result);
     }
 
     [HttpGet("GetAttendance")]
     [Authorize]
-    public IActionResult GetEmpAttendance()
+    public async Task<IActionResult> GetEmpAttendance()
     {
         HttpContext.Session.TryGetValue("Email", out var emailBytes);
         var email = emailBytes != null ? System.Text.Encoding.UTF8.GetString(emailBytes) : null;
         if (email == null) return BadRequest("No Attendance Found");
-        var result = employeeAttendanceRepository.GetAttendanceByEmp(email);
+        var result = await employeeAttendanceRepository.GetAttendanceByEmp(email);
         return Ok(result);
     }
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public IActionResult CreateAttendance(AttendanceModel value,int employeeId)
+    public async Task<IActionResult> CreateAttendance(AttendanceModel value,int employeeId)
     {
         var role = HttpContext.Session.GetString("Role");
-        var result = employeeAttendanceRepository.CreateEmployeeAttendance(value,employeeId, role);
+        var result = await employeeAttendanceRepository.CreateEmployeeAttendance(value,employeeId, role);
         return result switch
         {
             HttpStatusCode.BadRequest => BadRequest("Invalid Attendance Data"),

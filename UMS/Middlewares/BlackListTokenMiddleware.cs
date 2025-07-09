@@ -9,7 +9,7 @@ public class BlackListTokenMiddleware(RequestDelegate next)
         if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer "))
         {
             var token = authHeader.Replace("Bearer ", "");
-            if (blacklist.IsBlackListToken(token))
+            if (await blacklist.IsBlackListToken(token))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 await context.Response.WriteAsync("Your Session has expired!. Please login again.");

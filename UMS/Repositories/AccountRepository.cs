@@ -35,7 +35,7 @@ namespace UMS.Repositories
             return (isValid, token);
         }
 
-        public HttpStatusCode ManagerRegister(ManagerRegisterModel request)
+        public async Task<HttpStatusCode> ManagerRegister(ManagerRegisterModel request)
         {
             var validation = managerValidator.Validate(request);
             if (!validation.IsValid)
@@ -51,7 +51,7 @@ namespace UMS.Repositories
             parameters.Add("@RoleId", Roles.Manager);
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
-            repository.Execute(StoredProcedures.MANAGER_REGISTER, parameters);
+            await repository.ExecuteAsync(StoredProcedures.MANAGER_REGISTER, parameters);
             var result = parameters.Get<int>("@Result");
 
             return result switch
@@ -61,15 +61,11 @@ namespace UMS.Repositories
                 _ => throw new Exception("An error occurred while registering the manager.")
             };
         }
+        
 
-        public LoginResponseModel RefreshToken(string token, string refreshToken)
+        public async Task<HttpStatusCode> UserRegister(AddEmployee request)
         {
-            return new LoginResponseModel();
-        }
-
-        public HttpStatusCode UserRegister(AddEmployee request)
-        {
-            var manager = managerService.GetManagerByDesignation(request.DesignationId);
+            var manager = await managerService.GetManagerByDesignation(request.DesignationId);
             if (manager == null || string.IsNullOrEmpty(manager.UserName))
             {
                 return HttpStatusCode.NotFound;
@@ -87,7 +83,7 @@ namespace UMS.Repositories
             parameters.Add("@Status", "Active");
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
-            repository.Execute(StoredProcedures.USER_REGISTER, parameters);
+            await repository.ExecuteAsync(StoredProcedures.USER_REGISTER, parameters);
             int result = parameters.Get<int>("@Result");
 
             return result switch
@@ -108,7 +104,7 @@ namespace UMS.Repositories
             var otp = GenerateNewOtp();
             if (isForgotPassword)
             {
-                var emp = empService.GetEmployeeByEmail(model.UserName);
+                var emp = await empService.GetEmployeeByEmail(model.UserName);
                 if (emp == null)
                     throw new ArgumentException("Invalid email address.");
                 model.UserName = emp.UserName;
@@ -119,7 +115,7 @@ namespace UMS.Repositories
                 param.Add("@CreatedAt", DateTime.Now);
                 param.Add("@ExpiresAt", DateTime.Now.AddMinutes(5));
                 param.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-                repository.Execute(StoredProcedures.OTP_INSERT, param);
+                await repository.ExecuteAsync(StoredProcedures.OTP_INSERT, param);
                 
                 var result = param.Get<int>("@Result");
                 if (result == -1)
@@ -152,7 +148,7 @@ namespace UMS.Repositories
 
             string? email = null;
             var employee = await empService.EmployeeData(model.UserName);
-            email = employee.Email;
+            email = employee == null ? ConstantValues.MANAGER_DEFAULT_EMAIL : employee.Email;
 
             if (string.IsNullOrWhiteSpace(email))
                 return new OTPResultModel(){Success = false,ErrorMessage = "Invalid email address."};
@@ -163,7 +159,7 @@ namespace UMS.Repositories
             parameters.Add("@CreatedAt", DateTime.Now);
             parameters.Add("@ExpiresAt", DateTime.Now.AddMinutes(5));
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-            repository.Execute(StoredProcedures.OTP_INSERT, parameters);
+            await repository.ExecuteAsync(StoredProcedures.OTP_INSERT, parameters);
             
             var res = parameters.Get<int>("@Result");
             if (res == -1)

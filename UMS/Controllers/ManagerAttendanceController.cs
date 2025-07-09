@@ -17,41 +17,41 @@ public class ManagerAttendanceController(ManagerAttendanceService managerAttenda
     [HttpGet("manager")]
     [Authorize(Roles = "Admin")]
     [MapToApiVersion(2)]
-    public IActionResult GetAllAttendance()
+    public async Task<IActionResult> GetAllAttendance()
     {
-        var result = managerAttendance.GetAllManagerAttendance();
+        var result = await  managerAttendance.GetAllManagerAttendance();
         return Ok(result); 
     }
 
     [HttpGet("GetManagerAttendnace/{managerId}")]
     [Authorize(Roles = "Admin")]
     [MapToApiVersion(2)]
-    public IActionResult GetManagerAttendanceById(int managerId)
+    public async Task<IActionResult> GetManagerAttendanceById(int managerId)
     {
-        var result = managerAttendance.GetManagerAttendanceByID(managerId);
+        var result = await managerAttendance.GetManagerAttendanceByID(managerId);
         return Ok(result);
     }
 
     [HttpGet("getmyattendance")]
     [Authorize]
     [MapToApiVersion(2)]
-    public IActionResult GetManagerAttendance()
+    public async Task<IActionResult> GetManagerAttendance()
     {
         var userId = HttpContext.Session.GetInt32("UserId");
         if (userId == null)
         {
             return Unauthorized("User is not logged in.");
         }
-        var result = managerAttendance.GetMyAttendance(userId.Value);
+        var result = await  managerAttendance.GetMyAttendance(userId.Value);
         return Ok(result);
     }
 
     [HttpPost("addmanagerattendance")]
     [Authorize(Roles = "Admin")]
     [MapToApiVersion(2)]
-    public IActionResult CreateManagerAttendance(ManagerAttendanceModel value)
+    public async Task<IActionResult> CreateManagerAttendance(AddManagerAttendanceModel value)
     {
-        var result = managerAttendance.AddManagerAttendance(value);
+        var result = await managerAttendance.AddManagerAttendance(value);
         return result switch
         {
             HttpStatusCode.BadRequest => BadRequest("Invalid Attendance Data"),

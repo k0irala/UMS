@@ -9,7 +9,7 @@ namespace UMS.Repositories
 
         IEnumerable<T> Query<T>(string query, DynamicParameters parameters, CommandType commandType = CommandType.StoredProcedure);
 
-        T QuerySingleOrDefault<T>(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure);
-        void Execute(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure);
+        Task<T> QuerySingleOrDefaultAsync<T>(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure);
+        Task ExecuteAsync(string query, DynamicParameters parameters, CommandType type = CommandType.StoredProcedure);
     }
 }

@@ -6,9 +6,9 @@ namespace UMS.Repositories.ManagerManagement;
 
 public interface IManagerRepository
 {
-    List<GetManagerQueryResponse> GetAllManagers(DataTableRequest request);
-    GetManagerByIdQueryResponse GetManagerById(int id);
-    int UpdateManager(int id,AddManager manager);
-    int DeleteManager(int id);
-    int AddManager(AddManager manager);
+    Task<List<GetManagerQueryResponse>> GetAllManagers(DataTableRequest request);
+    Task<GetManagerByIdQueryResponse> GetManagerById(int id);
+    Task<int> UpdateManager(int id,AddManager manager);
+    Task<int> DeleteManager(int id);
+    Task<int> AddManager(AddManager manager);
 }

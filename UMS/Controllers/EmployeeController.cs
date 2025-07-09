@@ -13,23 +13,23 @@ namespace UMS.Controllers;
 public class EmployeeController(EmployeeService empService) :ControllerBase
 {
     [HttpPost("GetAllEmployees")]
-    public IActionResult GetAlL(DataTableRequest request)
+    public async Task<IActionResult> GetAlL(DataTableRequest request)
     {
-        var emp = empService.GetAllEmployees(request);
+        var emp = await empService.GetAllEmployees(request);
         return Ok(emp);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetEmployee(int id)
+    public async Task<IActionResult> GetEmployee(int id)
     {
-        var emp = empService.GetById(id);
+        var emp = await empService.GetById(id);
         return Ok(emp);
     }
 
     [HttpPut]
-    public IActionResult UpdateEmployee(int id, UpdateEmployee employee)
+    public async  Task<IActionResult> UpdateEmployee(int id, UpdateEmployee employee)
     {
-        var (statusCode,isSuccess) = empService.UpdateEmployee(id,employee);
+        var (statusCode,isSuccess) = await empService.UpdateEmployee(id,employee);
         if (isSuccess)
         {
             return StatusCode((int)statusCode,new ResponseModel()
@@ -47,9 +47,9 @@ public class EmployeeController(EmployeeService empService) :ControllerBase
         });
     }
     [HttpDelete("{id}")]
-    public IActionResult DeleteEmployee(int id)
+    public async Task<IActionResult> DeleteEmployee(int id)
     {
-        var (statusCode,isSuccess) = empService.DeleteEmployee(id);
+        var (statusCode,isSuccess) = await empService.DeleteEmployee(id);
         if (isSuccess)
             return StatusCode((int)statusCode,
                 new ResponseModel()
@@ -65,9 +65,9 @@ public class EmployeeController(EmployeeService empService) :ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddEmployee(AddEmployee employee)
+    public async Task<IActionResult> AddEmployee(AddEmployee employee)
     {
-        var (statusCode,isSuccess) = empService.CreateEmployee(employee);
+        var (statusCode,isSuccess) = await empService.CreateEmployee(employee);
         if (isSuccess) return StatusCode((int)statusCode,new ResponseModel(){StatusCode = statusCode,IsSuccess = isSuccess,SuccessMessage = "Employee Created Successfully"});
         return StatusCode((int)statusCode, new ResponseModel()
         {

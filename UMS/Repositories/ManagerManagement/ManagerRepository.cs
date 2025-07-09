@@ -10,23 +10,23 @@ namespace UMS.Repositories.ManagerManagement;
 
 public class ManagerRepository(IDapperRepository repository) : IManagerRepository
 {
-    public List<GetManagerQueryResponse> GetAllManagers(DataTableRequest request)
+    public async Task<List<GetManagerQueryResponse>> GetAllManagers(DataTableRequest request)
     {
         DynamicParameters parameters = new();
         parameters.AddDefaultPaginationParameters(request);
-        var result = repository.Query<GetManagerQueryResponse>(StoredProcedures.GET_ALL_MANAGERS, parameters);
+        var result = await repository.QueryAsync<GetManagerQueryResponse>(StoredProcedures.GET_ALL_MANAGERS, parameters);
         return result.ToList();
     }
 
-    public GetManagerByIdQueryResponse GetManagerById(int id)
+    public async Task<GetManagerByIdQueryResponse> GetManagerById(int id)
     {
         DynamicParameters parameters = new();
         parameters.Add("@id", id);
-        var result = repository.QuerySingleOrDefault<GetManagerByIdQueryResponse>(StoredProcedures.GET_MANAGER_BY_ID, parameters);
+        var result = await repository.QuerySingleOrDefaultAsync<GetManagerByIdQueryResponse>(StoredProcedures.GET_MANAGER_BY_ID, parameters);
         return result;
     }
 
-    public int UpdateManager(int id, AddManager manager)
+    public async Task<int> UpdateManager(int id, AddManager manager)
     {
         DynamicParameters parameters = new();
         parameters.Add("@id", id);
@@ -36,23 +36,23 @@ public class ManagerRepository(IDapperRepository repository) : IManagerRepositor
         parameters.Add("@Password", manager.Password);
         parameters.Add("@DesignationId",manager.DesignationId);
         parameters.Add("@Result",dbType:DbType.Int32,direction:ParameterDirection.Output);
-        repository.Execute(StoredProcedures.UPDATE_MANAGER, parameters);
+        await repository.ExecuteAsync(StoredProcedures.UPDATE_MANAGER, parameters);
         var result  = parameters.Get<int>("@Result");
         return result;
     }
 
-    public int DeleteManager(int id)
+    public async Task<int> DeleteManager(int id)
     {
         DynamicParameters parameters = new();
         parameters.Add("@id", id);
         parameters.Add("@Result", dbType:DbType.Int32,direction:ParameterDirection.Output);
-        repository.Execute(StoredProcedures.DELETE_MANAGER, parameters);
+        await repository.ExecuteAsync(StoredProcedures.DELETE_MANAGER, parameters);
         
         var result = parameters.Get<int>("@Result");
         return result;
     }
 
-    public int AddManager(AddManager manager)
+    public async Task<int> AddManager(AddManager manager)
     {
         DynamicParameters parameters = new();
         parameters.Add("@FullName", manager.FullName);
@@ -63,7 +63,7 @@ public class ManagerRepository(IDapperRepository repository) : IManagerRepositor
         parameters.Add("@RoleId",UMS.Enums.Roles.Employee);
         parameters.Add("@Result", dbType:DbType.Int32,direction:ParameterDirection.Output);
         
-        repository.Execute(StoredProcedures.ADD_MANAGER, parameters);
+        await repository.ExecuteAsync(StoredProcedures.ADD_MANAGER, parameters);
         
         var result = parameters.Get<int>("@Result");
         return result;

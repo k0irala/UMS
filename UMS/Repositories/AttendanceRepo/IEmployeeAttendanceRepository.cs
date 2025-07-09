@@ -7,11 +7,11 @@ namespace UMS.Repositories.AttendanceRepo;
 
 public interface IEmployeeAttendanceRepository
 {
-    IDictionary<string,List<EmployeeAttendanceModel>> GetAttendance();
-    IEnumerable<Attendance> GetEmployeeAttendance(int employeeId);
+    Task<IDictionary<string,List<EmployeeAttendanceModel>>> GetAttendance();
+    Task<IEnumerable<Attendance>> GetEmployeeAttendance(int employeeId);
 
-    IEnumerable<Attendance> GetAttendanceByEmp(string email);
+    Task<IEnumerable<Attendance>> GetAttendanceByEmp(string email);
     
-    HttpStatusCode CreateEmployeeAttendance(AttendanceModel attendance,int employeeId,string role);
+    Task<HttpStatusCode> CreateEmployeeAttendance(AttendanceModel attendance,int employeeId,string role);
 
 }

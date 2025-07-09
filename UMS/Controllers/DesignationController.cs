@@ -15,49 +15,45 @@ namespace UMS.Controllers
     public class DesignationController(DesignationRepository designation) : ControllerBase
     {
         [HttpPost]
-        public IActionResult Create(AddDesignationModel model)
+        public async Task<IActionResult> Create(AddDesignationModel model)
         {
-            try
-            {
-                HttpStatusCode result = designation.AddDesignation(model);
+                HttpStatusCode result = await designation.AddDesignation(model);
                 if (result == HttpStatusCode.OK) return Ok("Designation added successfully.");
                 else if (result == HttpStatusCode.NotFound) return Conflict("Designation already exists.");
                 else return Conflict("One or more validation error Occured");
-            }
-            catch (Exception ex) { return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}"); }
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             if (id == 0)
             {
                 return BadRequest("Id cannot be 0");
             }
-            var result = designation.GetDesignationById(id);
+            var result = await designation.GetDesignationById(id);
 
             return result != null ? Ok(result) : BadRequest("Id Not Found");
         }
 
         [HttpGet]
         [MapToApiVersion(1)]
-        public List<AddDesignationModel> GetAllV1()
+        public async Task<List<AddDesignationModel>> GetAllV1()
         {
-            var result = designation.GetAllDesignations();
+            var result = await designation.GetAllDesignations();
             return result != null ? [.. result] : [];
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            HttpStatusCode result = designation.DeleteDesignation(id);
+            HttpStatusCode result = await designation.DeleteDesignation(id);
             if (result == HttpStatusCode.OK) { return Ok("Deisgnation Deleted Successfully"); }
             else if (result == HttpStatusCode.NotFound) { return Conflict("Deisgnation Not Found"); }
             else return Conflict("Error Deleting Designation");
         }
         [HttpPut("{id}")]
-        public IActionResult Update(int id, UpdateDesignationModel model)
+        public async Task<IActionResult> Update(int id, UpdateDesignationModel model)
         {
-            HttpStatusCode result = designation.UpdateDesignation(id, model);
+            HttpStatusCode result = await designation.UpdateDesignation(id, model);
             if (result == HttpStatusCode.OK) { return Ok("Designation Updated Successfully"); }
             else if (result == HttpStatusCode.Conflict) { return Conflict("Designation Name Already Exists"); }
             else if (result == HttpStatusCode.NotFound) { return Conflict("Designation Name Not Found"); }

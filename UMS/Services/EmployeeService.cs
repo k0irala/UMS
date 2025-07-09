@@ -13,21 +13,21 @@ namespace UMS.Services
     public class EmployeeService(IEmployeeRepository employeeRepository,AesEncryption encryption,ManagerService managerService,ApplicationDbContext _dbContext,IValidator<AddEmployee> empValidator,IValidator<UpdateEmployee> updateEmpValidator )
     {
 
-        public Employee? GetEmployeeByEmail(string email)
+        public async Task<Employee> GetEmployeeByEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
                 throw new ArgumentException("Email cannot be null or empty.");
             }
-            return _dbContext.Employees.FirstOrDefault(e => e.Email == email);
+            return await  _dbContext.Employees.FirstOrDefaultAsync(e => e.Email == email);
         }
 
-        public (HttpStatusCode, bool) CreateEmployee(AddEmployee employee)
+        public async Task<(HttpStatusCode, bool)> CreateEmployee(AddEmployee employee)
         {
             var validationResult = empValidator.Validate(employee);
             if (!validationResult.IsValid) return (HttpStatusCode.BadRequest, validationResult.IsValid);
             var manager = managerService.GetManagerByDesignation(employee.DesignationId);
-            var result= employeeRepository.AddEmployee(employee,GenerateRandomEmpCode(),"Active",manager.Id);
+            var result= await employeeRepository.AddEmployee(employee,GenerateRandomEmpCode(),"Active",manager.Id);
             return result switch
             {
                 1 => (HttpStatusCode.Created,true),
@@ -35,9 +35,9 @@ namespace UMS.Services
                 _ => (HttpStatusCode.InternalServerError,false),
             };
         }
-        public AddEmployee GetById(int id)
+        public async Task<AddEmployee> GetById(int id)
         {
-            var emp = employeeRepository.GetEmployeeById(id);
+            var emp = await  employeeRepository.GetEmployeeById(id);
             return emp;
         }
 
@@ -46,20 +46,20 @@ namespace UMS.Services
             return await _dbContext.Employees.FirstOrDefaultAsync(e => e.UserName == userName);
         }
 
-        public List<Employee> GetAllEmployees(DataTableRequest request)
+        public async Task<List<Employee>> GetAllEmployees(DataTableRequest request)
         {
-            var employees = employeeRepository.GetAllEmployees(request);
+            var employees = await employeeRepository.GetAllEmployees(request);
             return employees.Count == 0 ? [] : employees;
         }
 
 
-        public (HttpStatusCode,bool) UpdateEmployee(int id,UpdateEmployee employee)
+        public async Task<(HttpStatusCode,bool)> UpdateEmployee(int id,UpdateEmployee employee)
         {
             employee.Password = encryption.EncryptString(employee.Password); 
             var validationResult = updateEmpValidator.Validate(employee);
             if (!validationResult.IsValid) return (HttpStatusCode.BadRequest, validationResult.IsValid);
             var manager = managerService.GetManagerByDesignation(employee.DesignationId);
-            var result = employeeRepository.UpdateEmployee(id,manager.Id,status:"Active",employee);
+            var result = await employeeRepository.UpdateEmployee(id,manager.Id,status:"Active",employee);
             return result switch
             {
                 1 => (HttpStatusCode.OK, true),
@@ -69,9 +69,9 @@ namespace UMS.Services
             };
         }
 
-        public (HttpStatusCode,bool) DeleteEmployee(int id)
+        public async Task<(HttpStatusCode,bool)> DeleteEmployee(int id)
         {
-            var result =  employeeRepository.DeleteEmployee(id);
+            var result =  await employeeRepository.DeleteEmployee(id);
             return result switch
             {
                 1 => (HttpStatusCode.OK, true),
@@ -84,13 +84,13 @@ namespace UMS.Services
         {
             return !await _dbContext.Employees.AnyAsync(e => e.Email == email);
         }
-        public string GetEmployeeEmail(string otp)
+        public async Task<string> GetEmployeeEmail(string otp)
         {
             if (string.IsNullOrWhiteSpace(otp))
             {
                 return "OTP is required";
             }
-            var employee = _dbContext.LoginVerificationOTPs.FirstOrDefault(e => e.OTP == otp);
+            var employee = await _dbContext.LoginVerificationOTPs.FirstOrDefaultAsync(e => e.OTP == otp);
             if (employee != null)
             {
                 return employee.Email ?? "Employee email is null.";

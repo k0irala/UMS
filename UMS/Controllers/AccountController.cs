@@ -1,11 +1,8 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Security.Claims;
 using Asp.Versioning;
 using FluentValidation;
-using FluentValidation.Results;
 using UMS.Models;
 using UMS.Models.Employee;
 using UMS.Repositories;
@@ -21,11 +18,11 @@ namespace UMS.Controllers
     {
         [HttpPost("EmployeeRegister")]
         [AllowAnonymous]
-        public IActionResult Register(AddEmployee emp)
+        public async Task<IActionResult> Register(AddEmployee emp)
         {
             var validate = empValidator.Validate(emp);
             if (!validate.IsValid) return BadRequest(validate);
-            var result = accRepository.UserRegister(emp);
+            var result = await accRepository.UserRegister(emp);
 
             return result switch
             {
@@ -39,9 +36,9 @@ namespace UMS.Controllers
 
         [HttpPost("ManagerRegister")]
         [AllowAnonymous]
-        public IActionResult Register(ManagerRegisterModel managerModel)
+        public async Task<IActionResult> Register(ManagerRegisterModel managerModel)
         {
-            var result = accRepository.ManagerRegister(managerModel);
+            var result = await accRepository.ManagerRegister(managerModel);
 
             if (result == HttpStatusCode.OK) { return Ok("Manager Registered Successfully"); }
 
@@ -74,9 +71,9 @@ namespace UMS.Controllers
         }
         [HttpPost("VerifyOtp")]
         [AllowAnonymous]
-        public IActionResult VerifyOtp(string OTP)
+        public async Task<IActionResult> VerifyOtp(string OTP)
         {
-            var response = jWtService.VerifyOtp(OTP, false);
+            var response = await jWtService.VerifyOtp(OTP, false);
             if (response == new LoginResponseModel())
                 return Conflict("OTP has expired");
             HttpContext.Session.SetString("Email", response.Email);
@@ -122,11 +119,11 @@ namespace UMS.Controllers
 
         [HttpPost("ManagerEmail")]
         [Authorize(Roles="Admin")]
-        public IActionResult ChangeEmail(int managerId,string email)
+        public async Task<IActionResult> ChangeEmail(int managerId,string email)
         {
             if (!User.IsInRole("Admin"))
                 return StatusCode(403, "You do not have permission to change manager emails.");
-            var manager = managerService.ChangeManagerEmail(managerId,email);
+            var manager = await managerService.ChangeManagerEmail(managerId,email);
 
             if (manager == HttpStatusCode.OK)
                 return Ok("The email of the manager has been changed!!");
@@ -135,14 +132,14 @@ namespace UMS.Controllers
 
         [HttpPost("Logout")]
         [Authorize]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Clear();
             var authHeader = Request.Headers.Authorization.ToString();
             if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
                 return Conflict("Could not Log Out!!");
             var token = authHeader["Bearer ".Length..].Trim();
-            var result = blackList.SaveBlackListToken(new BlackListToken(){Token=token,ExpiresAt = DateTime.Now.AddHours(3)});
+            var result = await blackList.SaveBlackListToken(new BlackListToken(){Token=token,ExpiresAt = DateTime.Now.AddHours(3)});
             return Ok(result + "Logged Out!");
         }
     }

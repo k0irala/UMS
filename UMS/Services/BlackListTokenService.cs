@@ -9,15 +9,15 @@ namespace UMS.Services;
 
 public class BlackListTokenService(IBlackListTokenRepository repository)
 {
-    public bool IsBlackListToken(string token)
+    public async Task<bool> IsBlackListToken(string token)
     {  
-        var result = repository.IsBlackListToken(token);
+        var result = await repository.IsBlackListToken(token);
         return result;
     }
 
-    public (HttpStatusCode,bool) SaveBlackListToken(BlackListToken blackListToken)
+    public async Task<(HttpStatusCode,bool)> SaveBlackListToken(BlackListToken blackListToken)
     {
-        var result = repository.SaveBlackListToken(blackListToken);
+        var result = await repository.SaveBlackListToken(blackListToken);
         return result switch
         {
             1 => (HttpStatusCode.OK, true),

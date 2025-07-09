@@ -2,6 +2,6 @@
 
 public interface IBlackListTokenRepository
 {
-    int SaveBlackListToken(Models.BlackListToken blackListToken);
-    bool IsBlackListToken(string token);
+    Task<int> SaveBlackListToken(Models.BlackListToken blackListToken);
+    Task<bool> IsBlackListToken(string token);
 }

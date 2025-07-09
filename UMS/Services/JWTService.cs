@@ -6,11 +6,8 @@ using System.Text;
 using UMS.Data;
 using UMS.Models;
 using UMS.Models.Entities;
-using UMS.Enums;
 using UMS.Repositories;
 using Dapper;
-using Azure.Core;
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using UMS.Encryption;
 
@@ -52,10 +49,10 @@ namespace UMS.Services
         }
 
         // 2. Verify OTP and generate token if valid
-        public LoginResponseModel VerifyOtp(string otp, bool isForgotPassword = false)
+        public async Task<LoginResponseModel> VerifyOtp(string otp, bool isForgotPassword = false)
         {
             string email;
-            var empEmail = empService.GetEmployeeEmail(otp);
+            var empEmail = await empService.GetEmployeeEmail(otp);
             const string managerEmail = ConstantValues.MANAGER_DEFAULT_EMAIL;
 
             if (!string.IsNullOrWhiteSpace(empEmail))
@@ -191,7 +188,7 @@ namespace UMS.Services
                     parameters.Add("@RefreshUserToken", refreshToken);
                     parameters.Add("@ExpiresAt", expiry);
                     parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-                    repository.Execute(StoredProcedures.REFRESH_TOKEN_EMPLOYEE_INSERT, parameters);
+                    repository.ExecuteAsync(StoredProcedures.REFRESH_TOKEN_EMPLOYEE_INSERT, parameters);
 
                     int result = parameters.Get<int>("@Result");
                     if (result != 1)
@@ -216,7 +213,7 @@ namespace UMS.Services
                     parameters.Add("@RefreshUserToken", refreshToken);
                     parameters.Add("@ExpiresAt", expiry);
                     parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-                    repository.Execute(StoredProcedures.REFRESH_TOKEN_MANAGER_INSERT, parameters);
+                    repository.ExecuteAsync(StoredProcedures.REFRESH_TOKEN_MANAGER_INSERT, parameters);
 
                     int result = parameters.Get<int>("@Result");
                     if (result != 1)
@@ -243,7 +240,7 @@ namespace UMS.Services
             parameters.Add("@Password", password);
             parameters.Add("@Email", email);
             parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-            repository.Execute(StoredProcedures.PASSWORD_RESET, parameters);
+            repository.ExecuteAsync(StoredProcedures.PASSWORD_RESET, parameters);
             int result = parameters.Get<int>("@Result");
             if (result != 1)
             {

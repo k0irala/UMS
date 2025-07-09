@@ -10,36 +10,36 @@ namespace UMS.Repositories.AttendanceRepo;
 
 public class EmployeeAttendanceRepository(IDapperRepository repository,EmployeeService employeeService,ManagerService managerService) : IEmployeeAttendanceRepository
 {
-    public IDictionary<string,List<EmployeeAttendanceModel>> GetAttendance()
+    public async Task<IDictionary<string,List<EmployeeAttendanceModel>>> GetAttendance()
     {
         DynamicParameters parameters = new();
-        var result = repository.Query<EmployeeAttendanceModel>(StoredProcedures.GET_ALL_EMP_ATTENDANCE,parameters);
+        var result = await repository.QueryAsync<EmployeeAttendanceModel>(StoredProcedures.GET_ALL_EMP_ATTENDANCE,parameters);
         var employeeAttendanceModels = result as EmployeeAttendanceModel[] ?? result.ToArray();
         return employeeAttendanceModels.ToDictionary(k => k.EmployeeName,res => new List<EmployeeAttendanceModel>(employeeAttendanceModels));
     }
 
-    public IEnumerable<Attendance> GetEmployeeAttendance(int employeeId)
+    public async Task<IEnumerable<Attendance>> GetEmployeeAttendance(int employeeId)
     {
         DynamicParameters parameters = new();
         parameters.Add("@empId", employeeId);
         
-        var result = repository.Query<Attendance>(StoredProcedures.GET_EMP_ATTENDANCE_BY_ID,parameters);
+        var result = await repository.QueryAsync<Attendance>(StoredProcedures.GET_EMP_ATTENDANCE_BY_ID,parameters);
         return result;
     }
 
-    public IEnumerable<Attendance> GetAttendanceByEmp(string email)
+    public async Task<IEnumerable<Attendance>> GetAttendanceByEmp(string email)
     {
         var emp = employeeService.GetEmployeeByEmail(email);
         DynamicParameters parameters = new();
         parameters.Add("@empId", emp.Id);
-        var result = repository.Query<Attendance>(StoredProcedures.GET_EMP_ATTENDANCE, parameters);
+        var result = await repository.QueryAsync<Attendance>(StoredProcedures.GET_EMP_ATTENDANCE, parameters);
         return result;
     }
 
-    public HttpStatusCode CreateEmployeeAttendance(AttendanceModel attendance,int employeeId,string role)
+    public async Task<HttpStatusCode> CreateEmployeeAttendance(AttendanceModel attendance,int employeeId,string role)
     {
         if (role == "Employee") return HttpStatusCode.OK;
-        var result = employeeService.GetById(employeeId);
+        var result = await employeeService.GetById(employeeId);
         var empData =result;
         if (empData == null) return HttpStatusCode.BadRequest;
         var manager = managerService.GetManagerByDesignation(empData.DesignationId);
@@ -60,7 +60,7 @@ public class EmployeeAttendanceRepository(IDapperRepository repository,EmployeeS
         parameters.Add("@empId", employeeId);
         parameters.Add("@Result", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
-        repository.Execute(StoredProcedures.ADD_EMP_ATTENDANCE, parameters);
+        repository.ExecuteAsync(StoredProcedures.ADD_EMP_ATTENDANCE, parameters);
         var data = parameters.Get<int>("@Result");
         
         return data == 0 ? HttpStatusCode.BadRequest : HttpStatusCode.OK;
