@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using UMS;
 using UMS.Data;
 using UMS.Encryption;
@@ -18,6 +19,7 @@ using UMS.Repositories.AttendanceRepo;
 using UMS.Repositories.BlackListToken;
 using UMS.Repositories.EmployeeManagement;
 using UMS.Repositories.ManagerManagement;
+using UMS.ResponseExamples;
 using UMS.Services;
 using UMS.Services.Attendance;
 using UMS.Validations.Account.Employee;
@@ -33,7 +35,8 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
     options.InstanceName = "UMS_"; // Optional prefix for cache keys
 });
-builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
+// Configure API Versioning
 builder.Services.AddApiVersioning(options =>
     {
         options.DefaultApiVersion = new ApiVersion(1); 
@@ -45,13 +48,16 @@ builder.Services.AddApiVersioning(options =>
     {
         options.GroupNameFormat = "'v'V"; 
         options.SubstituteApiVersionInUrl = true;
-    })
-    .AddMvc();
+    });
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+
+// Configure Swagger with API versioning
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
+// Your existing service registrations...
 builder.Services.AddScoped<IManagerAttendanceRepository,ManagerAttendanceRepository>();
 builder.Services.AddScoped<ManagerAttendanceService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -74,34 +80,13 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<AesEncryption>();
 builder.Services.AddScoped<IValidator<AddManager>, CreateManagerValidator>();
 builder.Services.AddScoped<IValidator<ManagerRegisterModel>, ManagerRegisterValidator>();
-builder.Services.AddSwaggerGen(options =>
-{
-    var jwtSecurityScheme = new OpenApiSecurityScheme
-    {
-        BearerFormat = "JWT",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = JwtBearerDefaults.AuthenticationScheme,
-        Description = "Enter Access Token",
-        Reference = new OpenApiReference
-        {
-            Id = JwtBearerDefaults.AuthenticationScheme,
-            Type = ReferenceType.SecurityScheme
-        }
-    };
-    options.AddSecurityDefinition("Bearer", jwtSecurityScheme);
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        { jwtSecurityScheme,Array.Empty<string>()}
-    });
-});
 
 var key = builder.Configuration["JWTConfig:Key"];
 if (string.IsNullOrEmpty(key))
 {
     throw new ArgumentException("JWT configuration key is not set.");
 }
+
 builder.Services.Configure<EmailSettingsModel>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddAuthentication(x =>
 {
@@ -122,12 +107,33 @@ builder.Services.AddAuthentication(x =>
         ValidAudience = builder.Configuration["JWTConfig:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(key))
     };
+});
 
-}
-);
+// Configure Swagger
 builder.Services.AddSwaggerGen(c =>
 {
+    // JWT Auth support
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        BearerFormat = "JWT",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        Description = "Enter Access Token",
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+    c.AddSecurityDefinition("Bearer", jwtSecurityScheme);
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtSecurityScheme, Array.Empty<string>() }
+    });
 
+    // Custom header
     c.AddSecurityDefinition("X-Signature", new OpenApiSecurityScheme
     {
         Name = "X-Signature",
@@ -150,23 +156,28 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
-});
-builder.Services.AddDistributedMemoryCache(); // Required for session
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout
-    options.Cookie.HttpOnly = true;                 // Security best practice
-    options.Cookie.IsEssential = true;              // Required for GDPR compliance
+
+    // Enable example filters
+    c.ExampleFilters();
 });
 
+// Add example filters for Swagger
+builder.Services.AddSwaggerExamplesFromAssemblyOf<EmpAttendanceResponseExample>();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<IValidator<UpdateDesignationModel>, UpdateDesignationValidator>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-        
- });
+});
 
 var app = builder.Build();
 
@@ -176,24 +187,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        var descriptions = app.DescribeApiVersions();
-
-        foreach (var description in descriptions)
+        var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var description in provider.ApiVersionDescriptions)
         {
-            var url = $"/swagger/{description.GroupName}/swagger.json";
-            var name = description.GroupName.ToUpperInvariant();
-            options.SwaggerEndpoint(url,name);
+            options.SwaggerEndpoint(
+                $"/swagger/{description.GroupName}/swagger.json",
+                $"UMS API {description.GroupName.ToUpperInvariant()}");
         }
     });
 }
 
 app.UseMiddleware<BlackListTokenMiddleware>();
 app.UseHttpsRedirection();
-
 app.UseSession();
-
+app.UseAuthentication(); // Add this line - it was missing!
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

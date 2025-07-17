@@ -3,10 +3,13 @@ using System.Net;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
 using UMS.Models;
+using UMS.Models.Employee;
 using UMS.Models.Entities;
 using UMS.Models.Manager;
 using UMS.Repositories.AttendanceRepo;
+using UMS.ResponseExamples;
 using UMS.Services.Attendance;
 
 namespace UMS.Controllers;
@@ -18,7 +21,13 @@ namespace UMS.Controllers;
 
 public class AttendanceController(IEmployeeAttendanceRepository employeeAttendanceRepository,ManagerAttendanceService managerAttendance) : ControllerBase
 {
-    [HttpGet]
+    [ProducesResponseType(400)]
+    [SwaggerResponseExample(400, typeof(EmpAttendanceBadRequestExample))]
+    [ProducesResponseType(typeof(EmpAttendanceResponseExample), 200)]
+    [ProducesResponseType(400)]
+    [SwaggerResponseExample(200, typeof(EmpAttendanceResponseExample))]
+    // [SwaggerResponse(HttpStatusCode.BadRequest)]
+    [HttpGet("employeeAttendance")]
     [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> GetAll()
     {
